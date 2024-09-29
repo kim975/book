@@ -1,0 +1,33 @@
+package com.zerobase.user.service;
+
+import com.zerobase.user.domain.model.UserEntity;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.ToString;
+
+
+public class UserCommand {
+
+    @Getter
+    @Builder
+    @ToString
+    public static class SignUpUser {
+        private String loginId;
+        private String password;
+        private String name;
+        private String nickname;
+        private String email;
+        private String phoneNumber;
+
+        public UserEntity toEntity() {
+            return UserEntity.builder()
+                    .loginId(loginId)
+                    .password(password)
+                    .name(name)
+                    .nickname(nickname)
+                    .email(email)
+                    .phoneNumber(phoneNumber)
+                    .build();
+        }
+    }
+}
