@@ -1,6 +1,8 @@
 package com.zerobase.user.service;
 
 import com.zerobase.user.domain.model.UserEntity;
+import com.zerobase.user.domain.repository.UserReader;
+import com.zerobase.user.domain.repository.UserStore;
 import com.zerobase.user.exception.BaseException;
 import com.zerobase.user.exception.UserErrorCode;
 import com.zerobase.user.util.TokenGenerator;

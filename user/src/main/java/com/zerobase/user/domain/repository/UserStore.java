@@ -1,4 +1,4 @@
-package com.zerobase.user.service;
+package com.zerobase.user.domain.repository;
 
 import com.zerobase.user.domain.model.UserEntity;
 
