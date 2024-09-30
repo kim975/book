@@ -13,4 +13,6 @@ public interface UserReader {
     boolean isExistsPhoneNumber(String phoneNumber);
 
     UserEntity getUserByLoginIdAndPassword(String loginId, String password);
+
+    UserEntity getUserByUserUuid(String userUuid);
 }

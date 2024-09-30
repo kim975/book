@@ -1,6 +1,8 @@
 package com.zerobase.user.controller;
 
 import com.zerobase.user.service.UserCommand;
+import com.zerobase.user.service.UserInfo;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -42,6 +44,21 @@ public class UserDto {
             return UserCommand.SignInUser.builder()
                     .loginId(loginId)
                     .password(password)
+                    .build();
+        }
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    @Builder
+    public static class SignInResponse {
+
+        private String nickname;
+
+        public static UserDto.SignInResponse from(UserInfo.SignInInfo user) {
+            return SignInResponse.builder()
+                    .nickname(user.getNickname())
                     .build();
         }
     }

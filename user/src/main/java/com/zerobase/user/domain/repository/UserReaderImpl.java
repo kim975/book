@@ -38,4 +38,10 @@ public class UserReaderImpl implements UserReader {
         return userRepository.findByLoginIdAndPassword(loginId, password)
                 .orElseThrow(() -> new BaseException(UserErrorCode.WRONG_ID_OR_PASSWORD));
     }
+
+    @Override
+    public UserEntity getUserByUserUuid(String userUuid) {
+        return userRepository.findByUserUuid(userUuid)
+                .orElseThrow(() -> new BaseException(UserErrorCode.NOT_FOUND_USER));
+    }
 }

@@ -12,12 +12,12 @@ public class BaseException extends RuntimeException {
         this.errorCode = errorCode;
     }
 
-    public BaseException(String message, ErrorCode errorCode) {
+    public BaseException(ErrorCode errorCode, String message) {
         super(message);
         this.errorCode = errorCode;
     }
 
-    public BaseException(String message, ErrorCode errorCode, Throwable cause) {
+    public BaseException(ErrorCode errorCode, String message, Throwable cause) {
         super(message, cause);
         this.errorCode = errorCode;
     }
