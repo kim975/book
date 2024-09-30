@@ -30,5 +30,19 @@ public class UserDto {
                     .build();
         }
     }
-    
+
+    @Getter
+    @Setter
+    @ToString
+    public static class SignInRequest {
+        private String loginId;
+        private String password;
+
+        public UserCommand.SignInUser toCommand() {
+            return UserCommand.SignInUser.builder()
+                    .loginId(loginId)
+                    .password(password)
+                    .build();
+        }
+    }
 }

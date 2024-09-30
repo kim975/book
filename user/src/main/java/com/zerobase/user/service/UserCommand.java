@@ -30,4 +30,20 @@ public class UserCommand {
                     .build();
         }
     }
+
+    @Getter
+    @Builder
+    @ToString
+    public static class SignInUser {
+        private String loginId;
+        private String password;
+
+        public UserEntity toEntity() {
+            return UserEntity.builder()
+                    .loginId(loginId)
+                    .password(password)
+                    .build();
+        }
+    }
+
 }

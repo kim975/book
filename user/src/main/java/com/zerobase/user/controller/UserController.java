@@ -21,4 +21,10 @@ public class UserController {
         return CommonResponse.success();
     }
 
+    @PostMapping("/signin")
+    public CommonResponse signIn(
+            @RequestBody UserDto.SignInRequest request
+    ) {
+        return CommonResponse.success(userFacade.signIn(request.toCommand()));
+    }
 }

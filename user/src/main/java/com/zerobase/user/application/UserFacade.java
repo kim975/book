@@ -1,5 +1,6 @@
 package com.zerobase.user.application;
 
+import com.zerobase.user.service.UserInfo;
 import com.zerobase.user.service.UserService;
 import com.zerobase.user.service.UserCommand;
 import lombok.RequiredArgsConstructor;
@@ -15,4 +16,7 @@ public class UserFacade {
         userService.signUp(command);
     }
 
+    public UserInfo.SignInInfo signIn(UserCommand.SignInUser command) {
+        return userService.signIn(command);
+    }
 }
