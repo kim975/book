@@ -22,23 +22,26 @@ public class UserInfo {
     @Builder
     @ToString
     public static class SignInInfo implements UserSecurity, UserDetails {
+
+        private Long id;
         private String nickname;
         private String userUuid;
         private List<UserRole> userRoles;
 
         public static UserInfo.SignInInfo fromEntity(UserEntity user) {
             return UserInfo.SignInInfo.builder()
-                    .nickname(user.getNickname())
-                    .userUuid(user.getUserUuid())
-                    .userRoles(user.getUserRoles())
-                    .build();
+                .id(user.getId())
+                .nickname(user.getNickname())
+                .userUuid(user.getUserUuid())
+                .userRoles(user.getUserRoles())
+                .build();
         }
 
         @Override
         public Collection<? extends GrantedAuthority> getAuthorities() {
             return userRoles.stream()
-                    .map(role -> new SimpleGrantedAuthority(role.toString()))
-                    .collect(Collectors.toList());
+                .map(role -> new SimpleGrantedAuthority(role.toString()))
+                .collect(Collectors.toList());
         }
 
         @Override

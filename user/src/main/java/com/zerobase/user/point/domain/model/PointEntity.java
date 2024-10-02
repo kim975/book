@@ -18,8 +18,7 @@ public class PointEntity extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    private UserEntity user;
+    private Long userId;
 
     private Integer point;
 }

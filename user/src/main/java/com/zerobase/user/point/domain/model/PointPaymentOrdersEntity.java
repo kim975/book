@@ -17,8 +17,7 @@ public class PointPaymentOrdersEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private UserEntity user;
+    private Long userId;
 
     private Long paymentAmount;
 

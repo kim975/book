@@ -56,6 +56,9 @@ public class CommonControllerAdvice {
     @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(value = BaseException.class)
     public CommonResponse onBaseException(final BaseException e) {
+
+        log.error(e.getMessage(), e);
+
         return CommonResponse.fail(e.getErrorCode());
     }
 }
