@@ -32,14 +32,15 @@ public class PointDto {
     @ToString
     public static class InitPointChargeOrderResponse {
 
+        private Long pointPaymentOrderId;
         private Long paymentAmount;
         private String paymentMethod;
         private String paymentUuid;
         private String paymentStatus;
 
-        public static InitPointChargeOrderResponse from(
-            PointFacadeDto.InitPointChargeResponse facadeDto) {
+        public static InitPointChargeOrderResponse from(PointFacadeDto.InitPointChargeResponse facadeDto) {
             return PointDto.InitPointChargeOrderResponse.builder()
+                .pointPaymentOrderId(facadeDto.getPointPaymentOrderId())
                 .paymentAmount(facadeDto.getPaymentAmount())
                 .paymentMethod(facadeDto.getPaymentMethod().toString())
                 .paymentStatus(facadeDto.getPaymentStatus().toString())

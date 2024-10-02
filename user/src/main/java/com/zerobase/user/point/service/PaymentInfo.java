@@ -17,6 +17,7 @@ public class PaymentInfo {
     @ToString
     public static class InitPointCharge {
 
+        private Long pointPaymentOrderId;
         private String paymentUuid;
         private Long paymentAmount;
         private PaymentMethod paymentMethod;
@@ -25,12 +26,12 @@ public class PaymentInfo {
 
         public static InitPointCharge from(PointPaymentOrderEntity pointPaymentOrder, PaymentTransactionEntity paymentTransaction) {
             return InitPointCharge.builder()
+                .pointPaymentOrderId(pointPaymentOrder.getId())
                 .paymentUuid(paymentTransaction.getTransactionUuid())
                 .paymentAmount(pointPaymentOrder.getPaymentAmount())
                 .paymentMethod(pointPaymentOrder.getPaymentMethod())
                 .paymentStatus(pointPaymentOrder.getPaymentStatus())
                 .build();
         }
-
     }
 }

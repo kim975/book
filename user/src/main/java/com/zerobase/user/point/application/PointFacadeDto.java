@@ -37,6 +37,7 @@ public class PointFacadeDto {
     @ToString
     public static class InitPointChargeResponse {
 
+        private Long pointPaymentOrderId;
         private String paymentUuid;
         private Long paymentAmount;
         private PaymentMethod paymentMethod;
@@ -44,6 +45,7 @@ public class PointFacadeDto {
 
         public static InitPointChargeResponse from(InitPointCharge paymentInfo) {
             return InitPointChargeResponse.builder()
+                .pointPaymentOrderId(paymentInfo.getPointPaymentOrderId())
                 .paymentAmount(paymentInfo.getPaymentAmount())
                 .paymentMethod(paymentInfo.getPaymentMethod())
                 .paymentStatus(paymentInfo.getPaymentStatus())
