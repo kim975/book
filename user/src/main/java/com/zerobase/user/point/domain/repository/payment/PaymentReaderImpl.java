@@ -1,5 +1,5 @@
 package com.zerobase.user.point.domain.repository.payment;
 
-public interface PaymentTransactionReader {
+public class PaymentReaderImpl implements PaymentReader {
 
 }

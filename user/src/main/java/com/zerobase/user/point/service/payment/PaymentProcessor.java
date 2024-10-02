@@ -1,7 +1,6 @@
 package com.zerobase.user.point.service.payment;
 
 import com.zerobase.user.exception.BaseException;
-import com.zerobase.user.exception.BasicErrorCode;
 import com.zerobase.user.exception.PaymentErrorCode;
 import com.zerobase.user.point.domain.model.PaymentMethod;
 import com.zerobase.user.point.domain.model.payment.PaymentTransactionEntity;

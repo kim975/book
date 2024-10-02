@@ -5,7 +5,6 @@ import com.zerobase.user.point.domain.model.PointPaymentOrderEntity;
 import com.zerobase.user.point.domain.model.payment.KakaoPaymentTransactionEntity;
 import com.zerobase.user.point.domain.model.payment.PayStatus;
 import com.zerobase.user.point.domain.model.payment.PaymentTransactionEntity;
-import com.zerobase.user.point.service.PaymentCommand.InitPaymentOrder;
 import com.zerobase.user.util.TokenGenerator;
 import org.springframework.stereotype.Component;
 

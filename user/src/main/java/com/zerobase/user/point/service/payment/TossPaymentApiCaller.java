@@ -1,7 +1,6 @@
 package com.zerobase.user.point.service.payment;
 
 import com.zerobase.user.point.domain.model.PaymentMethod;
-import com.zerobase.user.point.domain.model.payment.KakaoPaymentTransactionEntity;
 import com.zerobase.user.point.domain.model.payment.PaymentTransactionEntity;
 import com.zerobase.user.point.domain.model.payment.TossPaymentTransactionEntity;
 import lombok.extern.slf4j.Slf4j;

@@ -4,7 +4,6 @@ import com.zerobase.user.point.domain.model.PaymentMethod;
 import com.zerobase.user.point.domain.model.PaymentStatus;
 import com.zerobase.user.point.service.PaymentCommand;
 import com.zerobase.user.point.service.PaymentInfo.InitPointCharge;
-import com.zerobase.user.point.service.PointInfo;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

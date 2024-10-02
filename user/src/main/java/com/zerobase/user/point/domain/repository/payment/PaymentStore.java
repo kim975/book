@@ -8,4 +8,5 @@ public interface PaymentStore {
     PaymentTransactionEntity store(PaymentTransactionEntity paymentTransactionEntity);
 
     PointPaymentOrderEntity store(PointPaymentOrderEntity pointPaymentOrder);
+
 }

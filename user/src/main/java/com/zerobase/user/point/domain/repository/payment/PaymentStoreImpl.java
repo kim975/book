@@ -1,7 +1,6 @@
 package com.zerobase.user.point.domain.repository.payment;
 
 import com.zerobase.user.exception.BaseException;
-import com.zerobase.user.exception.BasicErrorCode;
 import com.zerobase.user.exception.PaymentErrorCode;
 import com.zerobase.user.point.domain.model.PointPaymentOrderEntity;
 import com.zerobase.user.point.domain.model.payment.KakaoPaymentTransactionEntity;
@@ -13,7 +12,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class PaymentTransactionStoreImpl implements PaymentStore {
+public class PaymentStoreImpl implements PaymentStore {
 
     private final KakaoPaymentTransactionRepository kakaoPaymentTransactionRepository;
     private final TossPaymentTransactionRepository tossPaymentTransactionRepository;
