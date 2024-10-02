@@ -5,8 +5,10 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
-@Table(name = "users")
+@Table(name = "user")
 @Entity
 @Getter
 @Setter
@@ -37,6 +39,10 @@ public class UserEntity extends BaseEntity {
 
     @Column(unique = true, nullable = false)
     private String userUuid;
+
+    @Enumerated(EnumType.STRING)
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<UserRole> userRoles = new ArrayList<>();
 
     private LocalDateTime leaveDateTime;
 }

@@ -1,6 +1,7 @@
 package com.zerobase.user.service;
 
 import com.zerobase.user.domain.model.UserEntity;
+import com.zerobase.user.domain.model.UserRole;
 import com.zerobase.user.domain.repository.UserReader;
 import com.zerobase.user.domain.repository.UserStore;
 import com.zerobase.user.exception.BaseException;
@@ -8,6 +9,8 @@ import com.zerobase.user.exception.UserErrorCode;
 import com.zerobase.user.util.TokenGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -21,8 +24,21 @@ public class UserService {
 
         UserEntity users = command.toEntity();
         users.setUserUuid(TokenGenerator.getToken());
+        users.setUserRoles(List.of(UserRole.ROLE_USER));
 
         userStore.store(users);
+    }
+
+    public UserInfo.SignInInfo signIn(UserCommand.SignInUser command) {
+        UserEntity user = userReader.getUserByLoginIdAndPassword(command.getLoginId(), command.getPassword());
+
+        validateSignIn(user);
+
+        return UserInfo.SignInInfo.fromEntity(user);
+    }
+
+    public UserInfo.SignInInfo getUserByUserUuid(String userUuid) {
+        return UserInfo.SignInInfo.fromEntity(userReader.getUserByUserUuid(userUuid));
     }
 
     private void validateSignUp(UserCommand.SignUpUser command) {
@@ -44,4 +60,10 @@ public class UserService {
         }
     }
 
+    private void validateSignIn(UserEntity user) {
+
+        if (user.getLeaveDateTime() != null) {
+            throw new BaseException(UserErrorCode.LEAVED_USER);
+        }
+    }
 }

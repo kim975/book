@@ -1,5 +1,7 @@
 package com.zerobase.user.domain.repository;
 
+import com.zerobase.user.domain.model.UserEntity;
+
 public interface UserReader {
 
     boolean isExistsLoginId(String loginId);
@@ -10,5 +12,7 @@ public interface UserReader {
 
     boolean isExistsPhoneNumber(String phoneNumber);
 
+    UserEntity getUserByLoginIdAndPassword(String loginId, String password);
 
+    UserEntity getUserByUserUuid(String userUuid);
 }
