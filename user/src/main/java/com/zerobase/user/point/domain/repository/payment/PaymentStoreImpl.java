@@ -2,11 +2,10 @@ package com.zerobase.user.point.domain.repository.payment;
 
 import com.zerobase.user.exception.BaseException;
 import com.zerobase.user.exception.PaymentErrorCode;
-import com.zerobase.user.point.domain.model.PointPaymentOrderEntity;
+import com.zerobase.user.point.domain.model.payment.PointPaymentOrderEntity;
 import com.zerobase.user.point.domain.model.payment.KakaoPaymentTransactionEntity;
 import com.zerobase.user.point.domain.model.payment.PaymentTransactionEntity;
 import com.zerobase.user.point.domain.model.payment.TossPaymentTransactionEntity;
-import com.zerobase.user.point.domain.repository.PointPaymentOrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

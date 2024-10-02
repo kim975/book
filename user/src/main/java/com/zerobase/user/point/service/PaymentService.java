@@ -1,6 +1,6 @@
 package com.zerobase.user.point.service;
 
-import com.zerobase.user.point.domain.model.PointPaymentOrderEntity;
+import com.zerobase.user.point.domain.model.payment.PointPaymentOrderEntity;
 import com.zerobase.user.point.domain.model.payment.PaymentTransactionEntity;
 import com.zerobase.user.point.domain.repository.payment.PaymentStore;
 import com.zerobase.user.point.service.PaymentInfo.InitPointCharge;

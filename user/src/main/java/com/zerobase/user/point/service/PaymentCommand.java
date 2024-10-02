@@ -2,7 +2,7 @@ package com.zerobase.user.point.service;
 
 import com.zerobase.user.point.domain.model.PaymentMethod;
 import com.zerobase.user.point.domain.model.PaymentStatus;
-import com.zerobase.user.point.domain.model.PointPaymentOrderEntity;
+import com.zerobase.user.point.domain.model.payment.PointPaymentOrderEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
