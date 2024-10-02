@@ -1,6 +1,5 @@
 package com.zerobase.user.point.domain.model.payment;
 
-import com.zerobase.user.point.domain.model.PointPaymentOrdersEntity;
 import jakarta.persistence.*;
 import lombok.*;
 

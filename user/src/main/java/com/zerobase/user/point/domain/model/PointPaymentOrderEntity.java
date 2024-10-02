@@ -1,17 +1,16 @@
 package com.zerobase.user.point.domain.model;
 
-import com.zerobase.user.domain.model.UserEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Table(name = "point_payment_orders")
+@Table(name = "point_payment_order")
 @Entity
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PointPaymentOrdersEntity {
+public class PointPaymentOrderEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

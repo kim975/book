@@ -1,10 +1,11 @@
 package com.zerobase.user.point.service.payment;
 
 import com.zerobase.user.point.domain.model.PaymentMethod;
+import com.zerobase.user.point.domain.model.PointPaymentOrderEntity;
 import com.zerobase.user.point.domain.model.payment.KakaoPaymentTransactionEntity;
 import com.zerobase.user.point.domain.model.payment.PayStatus;
 import com.zerobase.user.point.domain.model.payment.PaymentTransactionEntity;
-import com.zerobase.user.point.service.PaymentCommand.RegisterPaymentTransaction;
+import com.zerobase.user.point.service.PaymentCommand.InitPaymentOrder;
 import com.zerobase.user.util.TokenGenerator;
 import org.springframework.stereotype.Component;
 
@@ -20,13 +21,13 @@ public class KakaoPayment implements Payment {
     }
 
     @Override
-    public PaymentTransactionEntity makeTransactionEntity(RegisterPaymentTransaction command) {
+    public PaymentTransactionEntity makeTransactionEntity(PointPaymentOrderEntity pointPaymentOrder) {
         return KakaoPaymentTransactionEntity.builder()
-                .cid(CID)
-                .tid(TokenGenerator.getToken())
-                .totalAmount(command.getAmount())
-                .pointPaymentOrdersId(command.getPointPaymentOrdersId())
-                .status(PayStatus.IN_PROGRESS)
-                .build();
+            .pointPaymentOrdersId(pointPaymentOrder.getId())
+            .cid(CID)
+            .tid(TokenGenerator.getToken())
+            .totalAmount(pointPaymentOrder.getPaymentAmount())
+            .status(PayStatus.IN_PROGRESS)
+            .build();
     }
 }

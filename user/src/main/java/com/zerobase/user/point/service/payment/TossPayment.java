@@ -1,10 +1,10 @@
 package com.zerobase.user.point.service.payment;
 
 import com.zerobase.user.point.domain.model.PaymentMethod;
+import com.zerobase.user.point.domain.model.PointPaymentOrderEntity;
 import com.zerobase.user.point.domain.model.payment.PayStatus;
 import com.zerobase.user.point.domain.model.payment.PaymentTransactionEntity;
 import com.zerobase.user.point.domain.model.payment.TossPaymentTransactionEntity;
-import com.zerobase.user.point.service.PaymentCommand.RegisterPaymentTransaction;
 import com.zerobase.user.util.TokenGenerator;
 import org.springframework.stereotype.Component;
 
@@ -17,13 +17,13 @@ public class TossPayment implements Payment {
     }
 
     @Override
-    public PaymentTransactionEntity makeTransactionEntity(RegisterPaymentTransaction command) {
+    public PaymentTransactionEntity makeTransactionEntity(PointPaymentOrderEntity pointPaymentOrder) {
         return TossPaymentTransactionEntity.builder()
-                .pointPaymentOrdersId(command.getPointPaymentOrdersId())
-                .status(PayStatus.IN_PROGRESS)
-                .paymentKey(TokenGenerator.getToken())
-                .orderId(TokenGenerator.getToken())
-                .amount(command.getAmount())
-                .build();
+            .pointPaymentOrdersId(pointPaymentOrder.getId())
+            .paymentKey(TokenGenerator.getToken())
+            .orderId(TokenGenerator.getToken())
+            .amount(pointPaymentOrder.getPaymentAmount())
+            .status(PayStatus.IN_PROGRESS)
+            .build();
     }
 }

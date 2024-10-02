@@ -1,9 +1,9 @@
 package com.zerobase.user.point.domain.repository;
 
-import com.zerobase.user.point.domain.model.PointPaymentOrdersEntity;
+import com.zerobase.user.point.domain.model.PointPaymentOrderEntity;
 
 public interface PointStore {
 
-    PointPaymentOrdersEntity store(PointPaymentOrdersEntity pointPaymentOrders);
+    PointPaymentOrderEntity store(PointPaymentOrderEntity pointPaymentOrders);
 
 }

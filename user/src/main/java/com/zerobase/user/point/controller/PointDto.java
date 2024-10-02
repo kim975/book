@@ -19,10 +19,10 @@ public class PointDto {
 
         public PointFacadeDto.InitPointChargeRequest toFacadeDto(String userUuid) {
             return PointFacadeDto.InitPointChargeRequest.builder()
-                    .userUuid(userUuid)
-                    .paymentAmount(paymentAmount)
-                    .paymentMethod(PaymentMethod.valueOf(paymentMethod))
-                    .build();
+                .userUuid(userUuid)
+                .paymentAmount(paymentAmount)
+                .paymentMethod(PaymentMethod.valueOf(paymentMethod))
+                .build();
         }
     }
 
@@ -31,19 +31,29 @@ public class PointDto {
     @Builder
     @ToString
     public static class InitPointChargeOrderResponse {
+
         private Long paymentAmount;
         private String paymentMethod;
         private String paymentUuid;
         private String paymentStatus;
 
-        public static InitPointChargeOrderResponse from(PointFacadeDto.InitPointChargeResponse facadeDto) {
+        public static InitPointChargeOrderResponse from(
+            PointFacadeDto.InitPointChargeResponse facadeDto) {
             return PointDto.InitPointChargeOrderResponse.builder()
-                    .paymentAmount(facadeDto.getPaymentAmount())
-                    .paymentMethod(facadeDto.getPaymentMethod().toString())
-                    .paymentStatus(facadeDto.getPaymentStatus().toString())
-                    .paymentUuid(facadeDto.getPaymentUuid())
-                    .build();
+                .paymentAmount(facadeDto.getPaymentAmount())
+                .paymentMethod(facadeDto.getPaymentMethod().toString())
+                .paymentStatus(facadeDto.getPaymentStatus().toString())
+                .paymentUuid(facadeDto.getPaymentUuid())
+                .build();
         }
+
+    }
+
+    public static class PayPointChargeRequest {
+
+    }
+
+    public static class PayPointChargeResponse {
 
     }
 

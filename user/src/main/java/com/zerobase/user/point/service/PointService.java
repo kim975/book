@@ -11,12 +11,5 @@ public class PointService {
 
     private final PointReader pointReader;
     private final PointStore pointStore;
-
-    public PointInfo.PointPaymentOrder registerPointChargeOrder(PointCommand.RegisterPointChargeOrder command) {
-
-        return PointInfo.PointPaymentOrder.fromEntity(
-                pointStore.store(command.toEntity())
-        );
-    }
-
+    
 }

@@ -20,7 +20,7 @@ public class PointHistoryEntity {
     private PointEntity point;
 
     @OneToOne(fetch = FetchType.LAZY)
-    private PointPaymentOrdersEntity pointPaymentOrders;
+    private PointPaymentOrderEntity pointPaymentOrders;
 
     private Long beforePoint;
     private Long afterPoint;

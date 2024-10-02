@@ -1,6 +1,8 @@
 package com.zerobase.user.point.service;
 
 import com.zerobase.user.point.domain.model.PaymentMethod;
+import com.zerobase.user.point.domain.model.PaymentStatus;
+import com.zerobase.user.point.domain.model.PointPaymentOrderEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,19 +14,21 @@ public class PaymentCommand {
     @Setter
     @Builder
     @ToString
-    public static class RegisterPaymentTransaction {
+    public static class InitPaymentOrder {
 
-        private Long pointPaymentOrdersId;
-        private Long amount;
+        private Long userId;
+        private Long paymentAmount;
         private PaymentMethod paymentMethod;
 
-        public static RegisterPaymentTransaction from(PointInfo.PointPaymentOrder pointPaymentOrders) {
-            return RegisterPaymentTransaction.builder()
-                    .pointPaymentOrdersId(pointPaymentOrders.getId())
-                    .amount(pointPaymentOrders.getPaymentAmount())
-                    .paymentMethod(pointPaymentOrders.getPaymentMethod())
-                    .build();
+        public PointPaymentOrderEntity toEntity() {
+            return PointPaymentOrderEntity.builder()
+                .userId(userId)
+                .paymentAmount(paymentAmount)
+                .paymentMethod(paymentMethod)
+                .paymentStatus(PaymentStatus.IN_PROGRESS)
+                .build();
         }
+
     }
 
 }

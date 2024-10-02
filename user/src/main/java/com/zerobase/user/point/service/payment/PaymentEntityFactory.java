@@ -3,6 +3,7 @@ package com.zerobase.user.point.service.payment;
 
 import com.zerobase.user.exception.BaseException;
 import com.zerobase.user.exception.BasicErrorCode;
+import com.zerobase.user.point.domain.model.PointPaymentOrderEntity;
 import com.zerobase.user.point.domain.model.payment.PaymentTransactionEntity;
 import com.zerobase.user.point.service.PaymentCommand;
 
@@ -17,15 +18,15 @@ public class PaymentEntityFactory {
 
     private final List<Payment> paymentList;
 
-    public PaymentTransactionEntity makePaymentTransactionEntity(PaymentCommand.RegisterPaymentTransaction command) {
-        Payment payment = routingPayment(command);
-        return payment.makeTransactionEntity(command);
+    public PaymentTransactionEntity makePaymentTransactionEntity(PointPaymentOrderEntity pointPaymentOrder) {
+        Payment payment = routingPayment(pointPaymentOrder);
+        return payment.makeTransactionEntity(pointPaymentOrder);
     }
 
-    private Payment routingPayment(PaymentCommand.RegisterPaymentTransaction command) {
+    private Payment routingPayment(PointPaymentOrderEntity pointPaymentOrder) {
         return paymentList.stream()
-                .filter(payment -> payment.isSupport(command.getPaymentMethod()))
-                .findFirst()
-                .orElseThrow(() -> new BaseException(BasicErrorCode.COMMON_SYSTEM_ERROR));
+            .filter(payment -> payment.isSupport(pointPaymentOrder.getPaymentMethod()))
+            .findFirst()
+            .orElseThrow(() -> new BaseException(BasicErrorCode.COMMON_SYSTEM_ERROR));
     }
 }

@@ -2,6 +2,7 @@ package com.zerobase.user.point.service.payment;
 
 import com.zerobase.user.exception.BaseException;
 import com.zerobase.user.exception.BasicErrorCode;
+import com.zerobase.user.exception.PaymentErrorCode;
 import com.zerobase.user.point.domain.model.PaymentMethod;
 import com.zerobase.user.point.domain.model.payment.PaymentTransactionEntity;
 
@@ -27,8 +28,8 @@ public class PaymentProcessor {
 
     private PaymentApiCaller routingApiCaller(PaymentMethod paymentMethod) {
         return paymentApiCallerList.stream()
-                .filter(paymentApiCaller -> paymentApiCaller.isSupport(paymentMethod))
-                .findFirst()
-                .orElseThrow(() -> new BaseException(BasicErrorCode.COMMON_SYSTEM_ERROR));
+            .filter(paymentApiCaller -> paymentApiCaller.isSupport(paymentMethod))
+            .findFirst()
+            .orElseThrow(() -> new BaseException(PaymentErrorCode.NOT_FOUND_PG));
     }
 }
