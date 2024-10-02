@@ -2,7 +2,6 @@ package com.zerobase.user.point.controller;
 
 import com.zerobase.user.common.response.CommonResponse;
 import com.zerobase.user.point.application.PointFacade;
-import com.zerobase.user.point.controller.PointDto.RegisterPointChargeResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,13 +15,13 @@ public class PointController {
     private final PointFacade pointFacade;
 
     @PostMapping("/point/init")
-    public CommonResponse<RegisterPointChargeResponse> pointChargeRequest(
-        Authentication authentication,
-        @RequestBody PointDto.RegisterPointChargeRequest request
+    public CommonResponse<PointDto.InitPointChargeOrderResponse> pointChargeRequest(
+            Authentication authentication,
+            @RequestBody PointDto.InitPointChargeOrderRequest request
     ) {
 
         return CommonResponse.success(
-            PointDto.RegisterPointChargeResponse.from(pointFacade.registerPointChargeOrder(request.toFacadeDto(authentication.getName())))
+                PointDto.InitPointChargeOrderResponse.from(pointFacade.initPointChargeOrder(request.toFacadeDto(authentication.getName())))
         );
     }
 

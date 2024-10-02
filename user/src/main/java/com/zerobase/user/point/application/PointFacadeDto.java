@@ -4,7 +4,7 @@ import com.zerobase.user.point.domain.model.PaymentMethod;
 import com.zerobase.user.point.domain.model.PaymentStatus;
 import com.zerobase.user.point.service.PaymentInfo;
 import com.zerobase.user.point.service.PointCommand;
-import com.zerobase.user.point.service.PointInfo.PointPaymentOrder;
+import com.zerobase.user.point.service.PointInfo;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,18 +16,18 @@ public class PointFacadeDto {
     @Setter
     @Builder
     @ToString
-    public static class RegisterPointChargeOrderRequest {
+    public static class InitPointChargeRequest {
 
         private String userUuid;
         private Long paymentAmount;
         private PaymentMethod paymentMethod;
 
-        public PointCommand.RegisterPointCharge toCommand(Long userId) {
-            return PointCommand.RegisterPointCharge.builder()
-                .userId(userId)
-                .paymentAmount(paymentAmount)
-                .paymentMethod(paymentMethod)
-                .build();
+        public PointCommand.RegisterPointChargeOrder toCommand(Long userId) {
+            return PointCommand.RegisterPointChargeOrder.builder()
+                    .userId(userId)
+                    .paymentAmount(paymentAmount)
+                    .paymentMethod(paymentMethod)
+                    .build();
         }
     }
 
@@ -35,23 +35,23 @@ public class PointFacadeDto {
     @Setter
     @Builder
     @ToString
-    public static class RegisterPointChargeOrderResponse {
+    public static class InitPointChargeResponse {
 
         private Long paymentAmount;
         private PaymentMethod paymentMethod;
         private String paymentUuid;
         private PaymentStatus paymentStatus;
 
-        public static PointFacadeDto.RegisterPointChargeOrderResponse from(
-            PointPaymentOrder pointInfo,
-            PaymentInfo.RegisterPointChargeOrder paymentInfo
+        public static InitPointChargeResponse from(
+                PointInfo.PointPaymentOrder pointPaymentOrderInfo,
+                PaymentInfo.PaymentTransaction paymentInfo
         ) {
-            return RegisterPointChargeOrderResponse.builder()
-                .paymentAmount(pointInfo.getPaymentAmount())
-                .paymentMethod(pointInfo.getPaymentMethod())
-                .paymentStatus(pointInfo.getPaymentStatus())
-                .paymentUuid(paymentInfo.getPaymentUuid())
-                .build();
+            return InitPointChargeResponse.builder()
+                    .paymentAmount(pointPaymentOrderInfo.getPaymentAmount())
+                    .paymentMethod(pointPaymentOrderInfo.getPaymentMethod())
+                    .paymentStatus(pointPaymentOrderInfo.getPaymentStatus())
+                    .paymentUuid(paymentInfo.getPaymentUuid())
+                    .build();
         }
     }
 

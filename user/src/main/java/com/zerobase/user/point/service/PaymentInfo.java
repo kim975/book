@@ -12,16 +12,16 @@ public class PaymentInfo {
     @Setter
     @Builder
     @ToString
-    public static class RegisterPointChargeOrder {
+    public static class PaymentTransaction {
 
         private Long paymentTransactionId;
         private String paymentUuid;
 
-        public static PaymentInfo.RegisterPointChargeOrder from(PaymentTransactionEntity paymentTransactionEntity) {
-            return RegisterPointChargeOrder.builder()
-                .paymentTransactionId(paymentTransactionEntity.getPaymentTransactionId())
-                .paymentUuid(paymentTransactionEntity.getTransactionUuid())
-                .build();
+        public static PaymentTransaction from(PaymentTransactionEntity paymentTransactionEntity) {
+            return PaymentTransaction.builder()
+                    .paymentTransactionId(paymentTransactionEntity.getPaymentTransactionId())
+                    .paymentUuid(paymentTransactionEntity.getTransactionUuid())
+                    .build();
         }
 
     }

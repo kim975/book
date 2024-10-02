@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class TossPaymentApiCaller implements PaymentApiCaller{
+public class TossPaymentApiCaller implements PaymentApiCaller {
 
     @Override
     public boolean isSupport(PaymentMethod paymentMethod) {
@@ -18,12 +18,13 @@ public class TossPaymentApiCaller implements PaymentApiCaller{
 
     @Override
     public void pay() {
-        //실제로 결제
+        // PG 연동 대신 log로 대체
     }
 
     @Override
-    public void createPaymentOrder(PaymentTransactionEntity entity) {
+    public void initPaymentOrder(PaymentTransactionEntity entity) {
 
+        // PG 연동 대신 log로 대체
         TossPaymentTransactionEntity tossEntity = (TossPaymentTransactionEntity) entity;
 
         log.info(tossEntity.toString());

@@ -8,6 +8,6 @@ public interface Payment {
 
     boolean isSupport(PaymentMethod paymentMethod);
 
-    PaymentTransactionEntity makeTransactionEntity(PaymentCommand.CreatePaymentOrder command);
+    PaymentTransactionEntity makeTransactionEntity(PaymentCommand.RegisterPaymentTransaction command);
 
 }

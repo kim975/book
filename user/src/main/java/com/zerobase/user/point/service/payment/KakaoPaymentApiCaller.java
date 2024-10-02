@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class KakaoPaymentApiCaller implements PaymentApiCaller{
+public class KakaoPaymentApiCaller implements PaymentApiCaller {
 
     @Override
     public boolean isSupport(PaymentMethod paymentMethod) {
@@ -17,12 +17,13 @@ public class KakaoPaymentApiCaller implements PaymentApiCaller{
 
     @Override
     public void pay() {
-        //실제로 결제
+        // PG 연동 대신 log로 대체
     }
 
     @Override
-    public void createPaymentOrder(PaymentTransactionEntity entity) {
+    public void initPaymentOrder(PaymentTransactionEntity entity) {
 
+        // PG 연동 대신 log로 대체
         KakaoPaymentTransactionEntity kakaoEntity = (KakaoPaymentTransactionEntity) entity;
 
         log.info(kakaoEntity.toString());

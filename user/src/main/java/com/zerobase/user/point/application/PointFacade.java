@@ -1,8 +1,7 @@
 package com.zerobase.user.point.application;
 
-import com.zerobase.user.point.application.PointFacadeDto.RegisterPointChargeOrderRequest;
-import com.zerobase.user.point.service.PaymentCommand.CreatePaymentOrder;
-import com.zerobase.user.point.service.PaymentInfo.RegisterPointChargeOrder;
+import com.zerobase.user.point.service.PaymentCommand.RegisterPaymentTransaction;
+import com.zerobase.user.point.service.PaymentInfo.PaymentTransaction;
 import com.zerobase.user.point.service.PaymentService;
 import com.zerobase.user.point.service.PointInfo;
 import com.zerobase.user.point.service.PointService;
@@ -21,15 +20,15 @@ public class PointFacade {
     private final UserService userService;
 
     @Transactional
-    public PointFacadeDto.RegisterPointChargeOrderResponse registerPointChargeOrder(RegisterPointChargeOrderRequest dto) {
+    public PointFacadeDto.InitPointChargeResponse initPointChargeOrder(PointFacadeDto.InitPointChargeRequest dto) {
 
         SignInInfo userInfo = userService.getUserByUserUuid(dto.getUserUuid());
 
         PointInfo.PointPaymentOrder pointPaymentOrders = pointService.registerPointChargeOrder(dto.toCommand(userInfo.getId()));
 
-        RegisterPointChargeOrder paymentOrder = paymentService.callPaymentOrder(CreatePaymentOrder.from(pointPaymentOrders));
+        PaymentTransaction paymentOrder = paymentService.callPaymentOrder(RegisterPaymentTransaction.from(pointPaymentOrders));
 
-        return PointFacadeDto.RegisterPointChargeOrderResponse.from(pointPaymentOrders, paymentOrder);
+        return PointFacadeDto.InitPointChargeResponse.from(pointPaymentOrders, paymentOrder);
     }
 
 

@@ -14,7 +14,7 @@ public class PointCommand {
     @Setter
     @Builder
     @ToString
-    public static class RegisterPointCharge {
+    public static class RegisterPointChargeOrder {
 
         private Long userId;
         private Long paymentAmount;
@@ -22,11 +22,11 @@ public class PointCommand {
 
         public PointPaymentOrdersEntity toEntity() {
             return PointPaymentOrdersEntity.builder()
-                .userId(userId)
-                .paymentAmount(paymentAmount)
-                .paymentStatus(PaymentStatus.IN_PROGRESS)
-                .paymentMethod(paymentMethod)
-                .build();
+                    .userId(userId)
+                    .paymentAmount(paymentAmount)
+                    .paymentStatus(PaymentStatus.IN_PROGRESS)
+                    .paymentMethod(paymentMethod)
+                    .build();
         }
     }
 

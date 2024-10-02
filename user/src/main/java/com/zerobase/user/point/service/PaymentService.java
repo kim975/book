@@ -15,13 +15,14 @@ public class PaymentService {
     private final PaymentProcessor paymentProcessor;
     private final PaymentEntityFactory paymentEntityFactory;
 
-    public PaymentInfo.RegisterPointChargeOrder callPaymentOrder(PaymentCommand.CreatePaymentOrder command) {
+    public PaymentInfo.PaymentTransaction callPaymentOrder(PaymentCommand.RegisterPaymentTransaction command) {
+
         PaymentTransactionEntity paymentTransactionEntity = paymentEntityFactory.makePaymentTransactionEntity(command);
         PaymentTransactionEntity storeEntity = paymentTransactionStore.store(paymentTransactionEntity);
 
-        paymentProcessor.createPaymentOrder(storeEntity, command.getPaymentMethod());
+        paymentProcessor.initPaymentOrder(storeEntity, command.getPaymentMethod());
 
-        return PaymentInfo.RegisterPointChargeOrder.from(storeEntity);
+        return PaymentInfo.PaymentTransaction.from(storeEntity);
     }
 
 }

@@ -12,18 +12,18 @@ public class PaymentCommand {
     @Setter
     @Builder
     @ToString
-    public static class CreatePaymentOrder {
+    public static class RegisterPaymentTransaction {
 
         private Long pointPaymentOrdersId;
         private Long amount;
         private PaymentMethod paymentMethod;
 
-        public static PaymentCommand.CreatePaymentOrder from(PointInfo.PointPaymentOrder pointPaymentOrders) {
-            return CreatePaymentOrder.builder()
-                .pointPaymentOrdersId(pointPaymentOrders.getId())
-                .amount(pointPaymentOrders.getPaymentAmount())
-                .paymentMethod(pointPaymentOrders.getPaymentMethod())
-                .build();
+        public static RegisterPaymentTransaction from(PointInfo.PointPaymentOrder pointPaymentOrders) {
+            return RegisterPaymentTransaction.builder()
+                    .pointPaymentOrdersId(pointPaymentOrders.getId())
+                    .amount(pointPaymentOrders.getPaymentAmount())
+                    .paymentMethod(pointPaymentOrders.getPaymentMethod())
+                    .build();
         }
     }
 
