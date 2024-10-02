@@ -1,7 +1,6 @@
 package com.zerobase.user.security;
 
 import com.zerobase.user.application.UserFacade;
-import com.zerobase.user.exception.BaseException;
 import com.zerobase.user.exception.BasicErrorCode;
 import com.zerobase.user.exception.JwtCustomException;
 import io.jsonwebtoken.Claims;
@@ -51,7 +50,7 @@ public class TokenProvider {
         return parseClaims(token).getSubject();
     }
 
-    public boolean validateToken(String token) {
+    public boolean isTokenValid(String token) {
         if (!StringUtils.hasText(token)) {
             return false;
         }
