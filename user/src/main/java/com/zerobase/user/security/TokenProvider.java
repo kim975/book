@@ -37,12 +37,12 @@ public class TokenProvider {
         claims.put(KEY_ROLES, userSecurity.getUserRoles());
 
         return Jwts.builder()
-                .subject(userSecurity.getUserUuid())
-                .claims(claims)
-                .issuedAt(now) // 토큰 생성 시간
-                .expiration(expiredDate) // 토큰 만료 시간
-                .signWith(secretKey) // 사용할 암호화 알고리즘, 비밀키
-                .compact();
+            .subject(userSecurity.getUserUuid())
+            .claims(claims)
+            .issuedAt(now) // 토큰 생성 시간
+            .expiration(expiredDate) // 토큰 만료 시간
+            .signWith(secretKey) // 사용할 암호화 알고리즘, 비밀키
+            .compact();
 
     }
 
@@ -68,10 +68,10 @@ public class TokenProvider {
 
         try {
             return Jwts.parser()
-                    .verifyWith(secretKey)
-                    .build()
-                    .parseSignedClaims(token)
-                    .getPayload();
+                .verifyWith(secretKey)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
 
         } catch (ExpiredJwtException e) {
             throw new JwtCustomException(BasicErrorCode.EXPIRED_TOKEN);
