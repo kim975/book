@@ -1,7 +1,7 @@
-package com.zerobase.user.service;
+package com.zerobase.user.user.service;
 
-import com.zerobase.user.domain.model.UserEntity;
-import com.zerobase.user.domain.model.UserRole;
+import com.zerobase.user.user.domain.model.UserEntity;
+import com.zerobase.user.user.domain.model.UserRole;
 import com.zerobase.user.security.UserSecurity;
 import lombok.Builder;
 import lombok.Getter;

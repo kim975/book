@@ -1,6 +1,6 @@
 package com.zerobase.user.security;
 
-import com.zerobase.user.application.UserFacade;
+import com.zerobase.user.user.application.UserFacade;
 import com.zerobase.user.exception.BasicErrorCode;
 import com.zerobase.user.exception.JwtCustomException;
 import io.jsonwebtoken.Claims;

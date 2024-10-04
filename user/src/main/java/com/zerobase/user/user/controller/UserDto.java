@@ -1,7 +1,7 @@
-package com.zerobase.user.controller;
+package com.zerobase.user.user.controller;
 
-import com.zerobase.user.service.UserCommand;
-import com.zerobase.user.service.UserInfo;
+import com.zerobase.user.user.service.UserCommand;
+import com.zerobase.user.user.service.UserInfo;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,13 +23,13 @@ public class UserDto {
 
         public UserCommand.SignUpUser toCommand() {
             return UserCommand.SignUpUser.builder()
-                    .loginId(loginId)
-                    .password(password)
-                    .name(name)
-                    .nickname(nickname)
-                    .email(email)
-                    .phoneNumber(phoneNumber)
-                    .build();
+                .loginId(loginId)
+                .password(password)
+                .name(name)
+                .nickname(nickname)
+                .email(email)
+                .phoneNumber(phoneNumber)
+                .build();
         }
     }
 
@@ -37,14 +37,15 @@ public class UserDto {
     @Setter
     @ToString
     public static class SignInRequest {
+
         private String loginId;
         private String password;
 
         public UserCommand.SignInUser toCommand() {
             return UserCommand.SignInUser.builder()
-                    .loginId(loginId)
-                    .password(password)
-                    .build();
+                .loginId(loginId)
+                .password(password)
+                .build();
         }
     }
 
@@ -58,8 +59,8 @@ public class UserDto {
 
         public static UserDto.SignInResponse from(UserInfo.SignInInfo user) {
             return SignInResponse.builder()
-                    .nickname(user.getNickname())
-                    .build();
+                .nickname(user.getNickname())
+                .build();
         }
     }
 }

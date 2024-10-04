@@ -1,8 +1,8 @@
-package com.zerobase.user.application;
+package com.zerobase.user.user.application;
 
-import com.zerobase.user.service.UserCommand;
-import com.zerobase.user.service.UserInfo;
-import com.zerobase.user.service.UserService;
+import com.zerobase.user.user.service.UserCommand;
+import com.zerobase.user.user.service.UserInfo;
+import com.zerobase.user.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

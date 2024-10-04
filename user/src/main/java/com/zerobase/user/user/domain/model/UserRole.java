@@ -1,4 +1,4 @@
-package com.zerobase.user.domain.model;
+package com.zerobase.user.user.domain.model;
 
 public enum UserRole {
 
