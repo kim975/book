@@ -1,6 +1,6 @@
-package com.zerobase.user.service;
+package com.zerobase.user.user.service;
 
-import com.zerobase.user.domain.model.UserEntity;
+import com.zerobase.user.user.domain.model.UserEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -12,6 +12,7 @@ public class UserCommand {
     @Builder
     @ToString
     public static class SignUpUser {
+
         private String loginId;
         private String password;
         private String name;
@@ -21,13 +22,13 @@ public class UserCommand {
 
         public UserEntity toEntity() {
             return UserEntity.builder()
-                    .loginId(loginId)
-                    .password(password)
-                    .name(name)
-                    .nickname(nickname)
-                    .email(email)
-                    .phoneNumber(phoneNumber)
-                    .build();
+                .loginId(loginId)
+                .password(password)
+                .name(name)
+                .nickname(nickname)
+                .email(email)
+                .phoneNumber(phoneNumber)
+                .build();
         }
     }
 
@@ -35,14 +36,15 @@ public class UserCommand {
     @Builder
     @ToString
     public static class SignInUser {
+
         private String loginId;
         private String password;
 
         public UserEntity toEntity() {
             return UserEntity.builder()
-                    .loginId(loginId)
-                    .password(password)
-                    .build();
+                .loginId(loginId)
+                .password(password)
+                .build();
         }
     }
 

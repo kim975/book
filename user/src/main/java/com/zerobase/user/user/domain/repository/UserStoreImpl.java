@@ -1,6 +1,6 @@
-package com.zerobase.user.domain.repository;
+package com.zerobase.user.user.domain.repository;
 
-import com.zerobase.user.domain.model.UserEntity;
+import com.zerobase.user.user.domain.model.UserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

@@ -5,8 +5,8 @@ import static com.zerobase.user.point.service.PaymentInfo.InitPointCharge;
 
 import com.zerobase.user.point.service.PaymentService;
 import com.zerobase.user.point.service.PointService;
-import com.zerobase.user.service.UserInfo.SignInInfo;
-import com.zerobase.user.service.UserService;
+import com.zerobase.user.user.service.UserInfo.SignInInfo;
+import com.zerobase.user.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

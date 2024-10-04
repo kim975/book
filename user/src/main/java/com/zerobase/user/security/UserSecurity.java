@@ -1,6 +1,6 @@
 package com.zerobase.user.security;
 
-import com.zerobase.user.domain.model.UserRole;
+import com.zerobase.user.user.domain.model.UserRole;
 
 import java.util.List;
 

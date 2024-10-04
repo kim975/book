@@ -1,6 +1,6 @@
-package com.zerobase.user.domain.repository;
+package com.zerobase.user.user.domain.repository;
 
-import com.zerobase.user.domain.model.UserEntity;
+import com.zerobase.user.user.domain.model.UserEntity;
 import com.zerobase.user.exception.BaseException;
 import com.zerobase.user.exception.UserErrorCode;
 import lombok.RequiredArgsConstructor;
@@ -36,12 +36,12 @@ public class UserReaderImpl implements UserReader {
     @Override
     public UserEntity getUserByLoginIdAndPassword(String loginId, String password) {
         return userRepository.findByLoginIdAndPassword(loginId, password)
-                .orElseThrow(() -> new BaseException(UserErrorCode.WRONG_ID_OR_PASSWORD));
+            .orElseThrow(() -> new BaseException(UserErrorCode.WRONG_ID_OR_PASSWORD));
     }
 
     @Override
     public UserEntity getUserByUserUuid(String userUuid) {
         return userRepository.findByUserUuid(userUuid)
-                .orElseThrow(() -> new BaseException(UserErrorCode.NOT_FOUND_USER));
+            .orElseThrow(() -> new BaseException(UserErrorCode.NOT_FOUND_USER));
     }
 }
