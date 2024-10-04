@@ -63,4 +63,67 @@ public class UserDto {
                 .build();
         }
     }
+
+    @Getter
+    @Setter
+    @ToString
+    @Builder
+    public static class UserDetailResponse {
+
+        private String loginId;
+        private String name;
+        private String nickname;
+        private String email;
+        private String phoneNumber;
+
+        public static UserDto.UserDetailResponse from(UserInfo.UserDetail userDetail) {
+            return UserDto.UserDetailResponse.builder()
+                .loginId(userDetail.getLoginId())
+                .name(userDetail.getName())
+                .nickname(userDetail.getNickname())
+                .email(userDetail.getEmail())
+                .phoneNumber(userDetail.getPhoneNumber())
+                .build();
+        }
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    public static class ModifyUserRequest {
+
+        private String nickname;
+        private String email;
+        private String phoneNumber;
+        private String password;
+
+        public UserCommand.ModifyUser toCommand(String userUuid) {
+            return UserCommand.ModifyUser.builder()
+                .userUuid(userUuid)
+                .nickname(nickname)
+                .email(email)
+                .phoneNumber(phoneNumber)
+                .password(password)
+                .build();
+        }
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    @Builder
+    public static class ModifyUserResponse {
+
+        private String nickname;
+        private String email;
+        private String phoneNumber;
+
+        public static UserDto.ModifyUserResponse from(UserInfo.UserDetail user) {
+            return UserDto.ModifyUserResponse.builder()
+                .nickname(user.getNickname())
+                .email(user.getEmail())
+                .phoneNumber(user.getPhoneNumber())
+                .build();
+        }
+    }
 }

@@ -3,6 +3,7 @@ package com.zerobase.user.user.service;
 import com.zerobase.user.user.domain.model.UserEntity;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 
@@ -48,4 +49,16 @@ public class UserCommand {
         }
     }
 
+    @Getter
+    @Builder
+    @ToString
+    public static class ModifyUser {
+
+        private String userUuid;
+        private String password;
+        private String nickname;
+        private String email;
+        private String phoneNumber;
+
+    }
 }

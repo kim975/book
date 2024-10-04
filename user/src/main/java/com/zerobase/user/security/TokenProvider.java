@@ -60,7 +60,7 @@ public class TokenProvider {
     }
 
     public Authentication getAuthentication(String jwt) {
-        UserDetails userDetails = userFacade.getUserByUserUuid(getUserUuid(jwt));
+        UserDetails userDetails = userFacade.getUserAuthenticByUserUuid(getUserUuid(jwt));
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 

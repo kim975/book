@@ -5,11 +5,16 @@ import com.zerobase.user.common.properties.JwtConstant;
 import com.zerobase.user.common.response.CommonResponse;
 import com.zerobase.user.security.TokenProvider;
 import com.zerobase.user.user.service.UserInfo;
+import com.zerobase.user.user.service.UserInfo.UserDetail;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -42,6 +47,36 @@ public class UserController {
         return CommonResponse.success(
             UserDto.SignInResponse.from(userInfo)
         );
+    }
+
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/user")
+    public CommonResponse<UserDto.UserDetailResponse> getUserInfo(
+        Authentication authentication
+    ) {
+        return CommonResponse.success(
+            UserDto.UserDetailResponse.from(userFacade.getUserDetailByUserUuid(authentication.getName()))
+        );
+    }
+
+    @PreAuthorize("hasRole('USER')")
+    @PutMapping("/user")
+    public CommonResponse<UserDto.ModifyUserResponse> modifyUser(
+        Authentication authentication,
+        @RequestBody UserDto.ModifyUserRequest request
+    ) {
+        return CommonResponse.success(
+            UserDto.ModifyUserResponse.from(userFacade.modifyUser(request.toCommand(authentication.getName())))
+        );
+    }
+
+    @PreAuthorize("hasRole('USER')")
+    @DeleteMapping("/user")
+    public CommonResponse<Void> leaveUser(
+        Authentication authentication
+    ) {
+        userFacade.leaveUser(authentication.getName());
+        return CommonResponse.success();
     }
 
     @GetMapping("/test-user")
