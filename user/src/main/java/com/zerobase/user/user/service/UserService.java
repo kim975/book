@@ -21,14 +21,14 @@ public class UserService {
     private final UserStore userStore;
     private final UserReader userReader;
 
-    public void signUp(UserCommand.SignUpUser command) {
+    public UserInfo.UserDetail signUp(UserCommand.SignUpUser command) {
         validateSignUp(command);
 
         UserEntity users = command.toEntity();
         users.setUserUuid(TokenGenerator.getToken());
         users.setUserRoles(List.of(UserRole.ROLE_USER));
 
-        userStore.store(users);
+        return UserDetail.fromEntity(userStore.store(users));
     }
 
     public UserInfo.SignInInfo signIn(UserCommand.SignInUser command) {
@@ -65,7 +65,7 @@ public class UserService {
         user.setLeaveDateTime(LocalDateTime.now());
 
         userStore.store(user);
-        
+
         return UserInfo.UserDetail.fromEntity(user);
     }
 

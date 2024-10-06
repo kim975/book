@@ -53,4 +53,30 @@ public class PointFacadeDto {
         }
     }
 
+    @Getter
+    @Setter
+    @Builder
+    @ToString
+    public static class AddPointRequest {
+
+        private String userUuid;
+        private Long pointPaymentOrderId;
+        private PaymentMethod paymentMethod;
+    }
+
+    @Getter
+    @Setter
+    @Builder
+    @ToString
+    public static class AddPointResponse {
+
+        private Long currentPoint;
+
+        public static AddPointResponse from(Long currentPoint) {
+            return AddPointResponse.builder()
+                .currentPoint(currentPoint)
+                .build();
+        }
+
+    }
 }
