@@ -44,7 +44,13 @@ public class UserService {
     }
 
     public UserInfo.UserDetail getUserDetailByUuid(String userUuid) {
-        return UserInfo.UserDetail.fromEntity(userReader.getUserByUserUuid(userUuid));
+        UserEntity user = userReader.getUserByUserUuid(userUuid);
+
+        if (user.getLeaveDateTime() != null) {
+            throw new BaseException(UserErrorCode.LEAVED_USER);
+        }
+
+        return UserInfo.UserDetail.fromEntity(user);
     }
 
     public UserInfo.UserDetail modifyUserInfo(UserCommand.ModifyUser command) {
@@ -65,7 +71,7 @@ public class UserService {
         user.setLeaveDateTime(LocalDateTime.now());
 
         userStore.store(user);
-        
+
         return UserInfo.UserDetail.fromEntity(user);
     }
 
