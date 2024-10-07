@@ -20,7 +20,19 @@ public class UserFacade {
         return userService.signIn(command);
     }
 
-    public UserInfo.SignInInfo getUserByUserUuid(String userUuid) {
-        return userService.getUserByUserUuid(userUuid);
+    public UserInfo.SignInInfo getUserAuthenticByUserUuid(String userUuid) {
+        return userService.getUserAuthenticByUserUuid(userUuid);
+    }
+
+    public UserInfo.UserDetail getUserDetailByUserUuid(String userUuid) {
+        return userService.getUserDetailByUuid(userUuid);
+    }
+
+    public UserInfo.UserDetail modifyUser(UserCommand.ModifyUser command) {
+        return userService.modifyUserInfo(command);
+    }
+
+    public UserInfo.UserDetail leaveUser(String userUuid) {
+        return userService.leaveUser(userUuid);
     }
 }

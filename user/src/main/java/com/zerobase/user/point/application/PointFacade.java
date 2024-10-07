@@ -6,6 +6,7 @@ import static com.zerobase.user.point.service.PaymentInfo.InitPointCharge;
 import com.zerobase.user.point.service.PaymentService;
 import com.zerobase.user.point.service.PointService;
 import com.zerobase.user.user.service.UserInfo.SignInInfo;
+import com.zerobase.user.user.service.UserInfo.UserDetail;
 import com.zerobase.user.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ public class PointFacade {
     @Transactional
     public InitPointChargeResponse initPointChargeOrder(InitPointChargeRequest dto) {
 
-        SignInInfo userInfo = userService.getUserByUserUuid(dto.getUserUuid());
+        UserDetail userInfo = userService.getUserDetailByUuid(dto.getUserUuid());
 
         InitPointCharge paymentOrder = paymentService.callPaymentOrder(dto.toCommand(userInfo.getId()));
 
