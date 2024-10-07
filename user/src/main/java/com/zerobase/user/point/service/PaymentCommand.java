@@ -31,4 +31,13 @@ public class PaymentCommand {
 
     }
 
+    @Getter
+    @Setter
+    @Builder
+    @ToString
+    public static class PayPointCharge {
+
+        private Long pointPaymentOrderId;
+        private PaymentMethod paymentMethod;
+    }
 }

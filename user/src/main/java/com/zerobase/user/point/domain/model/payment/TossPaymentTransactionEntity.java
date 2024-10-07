@@ -17,7 +17,7 @@ public class TossPaymentTransactionEntity extends PaymentTransactionEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long pointPaymentOrdersId;
+    private Long pointPaymentOrderId;
 
     private String paymentKey;
     private String orderId;
@@ -25,16 +25,6 @@ public class TossPaymentTransactionEntity extends PaymentTransactionEntity {
 
     @Enumerated(EnumType.STRING)
     private PayStatus status;
-
-    @Override
-    public void setPaymentUuid(String token) {
-        this.paymentKey = token;
-    }
-
-    @Override
-    public long getPaymentTransactionId() {
-        return id;
-    }
 
     @Override
     public String getTransactionUuid() {

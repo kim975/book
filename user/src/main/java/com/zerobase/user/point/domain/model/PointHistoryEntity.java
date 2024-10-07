@@ -20,8 +20,7 @@ public class PointHistoryEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private PointEntity point;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    private PointPaymentOrderEntity pointPaymentOrder;
+    private Long pointPaymentOrderId;
 
     private Long beforePoint;
     private Long afterPoint;

@@ -2,6 +2,7 @@ package com.zerobase.user.point.service;
 
 import com.zerobase.user.point.domain.model.PaymentMethod;
 import com.zerobase.user.point.domain.model.PaymentStatus;
+import com.zerobase.user.point.domain.model.payment.PayStatus;
 import com.zerobase.user.point.domain.model.payment.PointPaymentOrderEntity;
 import com.zerobase.user.point.domain.model.payment.PaymentTransactionEntity;
 import lombok.Builder;
@@ -33,5 +34,20 @@ public class PaymentInfo {
                 .paymentStatus(pointPaymentOrder.getPaymentStatus())
                 .build();
         }
+    }
+
+    @Getter
+    @Setter
+    @Builder
+    @ToString
+    public static class PayPointCharge {
+
+        private Long id;
+        private Long pointPaymentOrderId;
+        private String paymentUuid;
+        private Long paymentAmount;
+        private PaymentMethod paymentMethod;
+        private PayStatus payStatus;
+
     }
 }

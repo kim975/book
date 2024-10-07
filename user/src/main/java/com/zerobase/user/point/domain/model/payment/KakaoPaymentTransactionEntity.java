@@ -1,5 +1,6 @@
 package com.zerobase.user.point.domain.model.payment;
 
+import com.zerobase.user.point.domain.model.PaymentStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,7 +18,7 @@ public class KakaoPaymentTransactionEntity extends PaymentTransactionEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long pointPaymentOrdersId;
+    private Long pointPaymentOrderId;
 
     private String cid;
     private String tid;
@@ -27,17 +28,8 @@ public class KakaoPaymentTransactionEntity extends PaymentTransactionEntity {
     private PayStatus status;
 
     @Override
-    public void setPaymentUuid(String token) {
-        this.tid = token;
-    }
-
-    @Override
-    public long getPaymentTransactionId() {
-        return id;
-    }
-
-    @Override
     public String getTransactionUuid() {
         return tid;
     }
+
 }

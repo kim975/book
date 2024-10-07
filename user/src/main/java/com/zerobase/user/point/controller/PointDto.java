@@ -1,6 +1,7 @@
 package com.zerobase.user.point.controller;
 
 import com.zerobase.user.point.application.PointFacadeDto;
+import com.zerobase.user.point.application.PointFacadeDto.AddPointRequest;
 import com.zerobase.user.point.domain.model.PaymentMethod;
 import lombok.Builder;
 import lombok.Getter;
@@ -50,4 +51,35 @@ public class PointDto {
 
     }
 
+    @Getter
+    @Setter
+    @Builder
+    public static class PayPointChargeResponse {
+
+        private Long amount;
+
+        public static PointDto.PayPointChargeResponse from(PointFacadeDto.AddPointResponse facadeDto) {
+            return PointDto.PayPointChargeResponse.builder()
+                .amount(facadeDto.getCurrentPoint())
+                .build();
+        }
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    public static class PayPointChargeRequest {
+
+        private Long pointPaymentOrderId;
+        private String paymentMethod;
+
+        public AddPointRequest toFacadeDto(String userUuid) {
+            return AddPointRequest.builder()
+                .userUuid(userUuid)
+                .pointPaymentOrderId(pointPaymentOrderId)
+                .paymentMethod(PaymentMethod.valueOf(paymentMethod))
+                .build();
+        }
+
+    }
 }
