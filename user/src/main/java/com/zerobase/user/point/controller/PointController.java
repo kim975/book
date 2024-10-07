@@ -25,16 +25,14 @@ public class PointController {
         );
     }
 
-//    @PostMapping("/point/pay")
-//    public CommonResponse<PointDto.PayPointChargeResponse> pointChargeRequest(
-//            Authentication authentication,
-//            @RequestBody PointDto.PayPointChargeRequest request
-//    ) {
-//
-//        return CommonResponse.success(
-//                RegisterPointChargeOrderResponse.from(pointFacade.registerPointChargeOrder(request.toFacadeDto(authentication.getName())))
-//        );
-//    }
-
-
+    @PostMapping("/point/pay")
+    public CommonResponse<PointDto.PayPointChargeResponse> pointChargeRequest(
+        Authentication authentication,
+        @RequestBody PointDto.PayPointChargeRequest request
+    ) {
+        ;
+        return CommonResponse.success(
+            PointDto.PayPointChargeResponse.from(pointFacade.addPoint(request.toFacadeDto(authentication.getName())))
+        );
+    }
 }

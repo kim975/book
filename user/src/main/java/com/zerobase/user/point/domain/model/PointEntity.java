@@ -19,5 +19,5 @@ public class PointEntity extends BaseEntity {
 
     private Long userId;
 
-    private Integer point;
+    private Long point;
 }

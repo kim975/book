@@ -21,8 +21,9 @@ public class PaymentProcessor {
         payApiCaller.initPaymentOrder(entity);
     }
 
-    public void pay() {
-
+    public PaymentTransactionEntity pay(PaymentTransactionEntity entity, PaymentMethod paymentMethod) {
+        PaymentApiCaller payApiCaller = routingApiCaller(paymentMethod);
+        return payApiCaller.pay(entity);
     }
 
     private PaymentApiCaller routingApiCaller(PaymentMethod paymentMethod) {

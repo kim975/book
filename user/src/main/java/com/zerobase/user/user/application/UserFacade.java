@@ -1,7 +1,9 @@
 package com.zerobase.user.user.application;
 
+import com.zerobase.user.point.service.PointService;
 import com.zerobase.user.user.service.UserCommand;
 import com.zerobase.user.user.service.UserInfo;
+import com.zerobase.user.user.service.UserInfo.UserDetail;
 import com.zerobase.user.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -10,10 +12,12 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserFacade {
 
+    private final PointService pointService;
     private final UserService userService;
 
     public void signUp(UserCommand.SignUpUser command) {
-        userService.signUp(command);
+        UserDetail userDetail = userService.signUp(command);
+        pointService.initPoint(userDetail.getId());
     }
 
     public UserInfo.SignInInfo signIn(UserCommand.SignInUser command) {
