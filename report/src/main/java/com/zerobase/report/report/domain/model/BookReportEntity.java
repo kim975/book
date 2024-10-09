@@ -5,32 +5,39 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Table(name = "book")
+@Table(name = "book_report")
 @Entity
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Book extends BaseEntity {
+public class BookReportEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String title;
-    private String author;
-    private String publisher;
-    private String isbn;
-    private String thumbnailImageUrl;
-    private LocalDate publishedDate;
+    @ManyToOne
+    private BookEntity bookEntity;
+
+    private Long userId;
+
+    private Long bookReportSeq;
+
+    private LocalDateTime readDateTime;
+
+    private String text;
+
+    private boolean publicYn;
 
 }

@@ -1,5 +1,7 @@
 package com.zerobase.report.common.response;
 
+import com.zerobase.report.exception.ApiErrorCode;
+import com.zerobase.report.exception.ApiException;
 import com.zerobase.report.exception.BaseException;
 import com.zerobase.report.exception.BasicErrorCode;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +30,22 @@ public class CommonControllerAdvice {
         log.error(e.getMessage(), e);
 
         return CommonResponse.fail(BasicErrorCode.COMMON_SYSTEM_ERROR);
+    }
+
+    /**
+     * http status : 500 result : fail
+     *
+     * @param e
+     * @return
+     */
+    @ResponseBody
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(value = ApiException.class)
+    public CommonResponse onApiException(final ApiException e) {
+
+        log.error(e.getMessage(), e);
+
+        return CommonResponse.fail(e.getErrorCode());
     }
 
     /**
