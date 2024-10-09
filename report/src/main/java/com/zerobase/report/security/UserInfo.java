@@ -18,11 +18,6 @@ public class UserInfo implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-
-        for (UserRole userRole : userRoles) {
-            System.out.println(userRole.toString());
-        }
-
         return userRoles.stream()
             .map(role -> new SimpleGrantedAuthority(role.toString()))
             .collect(Collectors.toList());

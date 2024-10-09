@@ -30,7 +30,7 @@ public class PointController {
         Authentication authentication,
         @RequestBody PointDto.PayPointChargeRequest request
     ) {
-        ;
+        
         return CommonResponse.success(
             PointDto.PayPointChargeResponse.from(pointFacade.addPoint(request.toFacadeDto(authentication.getName())))
         );

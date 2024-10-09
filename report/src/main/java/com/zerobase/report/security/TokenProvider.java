@@ -5,7 +5,6 @@ import com.zerobase.report.exception.JwtCustomException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -47,7 +46,7 @@ public class TokenProvider {
             .map(UserRole::valueOf)
             .collect(Collectors.toList())
         );
-        
+
         return new UsernamePasswordAuthenticationToken(userInfo, "", userInfo.getAuthorities());
     }
 
