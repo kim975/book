@@ -5,7 +5,6 @@ import com.zerobase.user.point.domain.model.payment.PointPaymentOrderEntity;
 import com.zerobase.user.point.domain.model.payment.KakaoPaymentTransactionEntity;
 import com.zerobase.user.point.domain.model.payment.PayStatus;
 import com.zerobase.user.point.domain.model.payment.PaymentTransactionEntity;
-import com.zerobase.user.point.domain.model.payment.TossPaymentTransactionEntity;
 import com.zerobase.user.point.service.PaymentInfo;
 import com.zerobase.user.point.service.PaymentInfo.PayPointCharge;
 import com.zerobase.user.util.TokenGenerator;

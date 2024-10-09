@@ -1,7 +1,6 @@
 package com.zerobase.user.point.domain.repository.payment;
 
 import com.zerobase.user.point.domain.model.payment.KakaoPaymentTransactionEntity;
-import com.zerobase.user.point.domain.model.payment.PaymentTransactionEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface KakaoPaymentTransactionRepository extends JpaRepository<KakaoPaymentTransactionEntity, Long> {

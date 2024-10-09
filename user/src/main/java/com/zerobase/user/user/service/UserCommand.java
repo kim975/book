@@ -3,7 +3,6 @@ package com.zerobase.user.user.service;
 import com.zerobase.user.user.domain.model.UserEntity;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
 
