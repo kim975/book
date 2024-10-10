@@ -1,5 +1,6 @@
 package com.zerobase.user.user.controller;
 
+import com.zerobase.user.annotion.EncryptPassword;
 import com.zerobase.user.user.service.UserCommand;
 import com.zerobase.user.user.service.UserInfo;
 import lombok.Builder;
@@ -15,6 +16,8 @@ public class UserDto {
     public static class SignUpRequest {
 
         private String loginId;
+
+        @EncryptPassword
         private String password;
         private String name;
         private String nickname;
@@ -39,6 +42,8 @@ public class UserDto {
     public static class SignInRequest {
 
         private String loginId;
+
+        @EncryptPassword
         private String password;
 
         public UserCommand.SignInUser toCommand() {
@@ -95,6 +100,8 @@ public class UserDto {
         private String nickname;
         private String email;
         private String phoneNumber;
+
+        @EncryptPassword
         private String password;
 
         public UserCommand.ModifyUser toCommand(String userUuid) {
