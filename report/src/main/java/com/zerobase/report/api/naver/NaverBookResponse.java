@@ -1,13 +1,16 @@
 package com.zerobase.report.api.naver;
 
-import com.zerobase.report.report.service.BookInfo;
+import com.zerobase.report.report.service.BookInfo.BookApiDetail;
+import com.zerobase.report.report.service.BookInfo.BookApiMain;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 public class NaverBookResponse {
 
     private int total;
@@ -15,10 +18,21 @@ public class NaverBookResponse {
     private int display;
     private List<NaverBookDetail> items;
 
-    public List<BookInfo.BookApiInfo> toBookApiInfo() {
+    public BookApiMain toBookApiMain() {
+        return BookApiMain.builder()
+            .page(start)
+            .size(display)
+            .total(total)
+            .bookApiDetailList(toBookApiDetailList())
+            .build();
+    }
+
+    private List<BookApiDetail> toBookApiDetailList() {
 
         return items.stream()
-            .map(NaverBookDetail::toBookApiInfo)
+            .map(NaverBookDetail::toBookApiDetail)
             .collect(Collectors.toList());
     }
+
+
 }

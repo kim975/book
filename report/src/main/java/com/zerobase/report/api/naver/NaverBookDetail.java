@@ -1,6 +1,6 @@
 package com.zerobase.report.api.naver;
 
-import com.zerobase.report.report.service.BookInfo;
+import com.zerobase.report.report.service.BookInfo.BookApiDetail;
 import java.time.LocalDate;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,13 +21,13 @@ public class NaverBookDetail {
     private String isbn;
     private String description;
 
-    public BookInfo.BookApiInfo toBookApiInfo() {
+    public BookApiDetail toBookApiDetail() {
 
         int year = Integer.parseInt(pubdate.substring(0, 4));
         int month = Integer.parseInt(pubdate.substring(4, 6));
         int day = Integer.parseInt(pubdate.substring(6, 8));
 
-        return BookInfo.BookApiInfo.builder()
+        return BookApiDetail.builder()
             .title(title)
             .author(author)
             .publisher(publisher)

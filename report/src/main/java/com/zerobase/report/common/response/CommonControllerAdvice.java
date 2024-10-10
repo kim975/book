@@ -1,6 +1,5 @@
 package com.zerobase.report.common.response;
 
-import com.zerobase.report.exception.ApiErrorCode;
 import com.zerobase.report.exception.ApiException;
 import com.zerobase.report.exception.BaseException;
 import com.zerobase.report.exception.BasicErrorCode;

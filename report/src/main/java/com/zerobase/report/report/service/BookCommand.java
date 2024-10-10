@@ -1,6 +1,7 @@
 package com.zerobase.report.report.service;
 
 import com.zerobase.report.report.domain.model.BookEntity;
+import com.zerobase.report.report.service.BookInfo.BookApiDetail;
 import java.time.LocalDate;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,6 +15,7 @@ public class BookCommand {
     @ToString
     @Builder
     public static class RegisterBook {
+
         private String title;
         private String author;
         private String publisher;
@@ -21,7 +23,7 @@ public class BookCommand {
         private String thumbnailImageUrl;
         private LocalDate publishedDate;
 
-        public static BookCommand.RegisterBook fromBookInfo(BookInfo.BookApiInfo bookInfo) {
+        public static BookCommand.RegisterBook fromBookInfo(BookApiDetail bookInfo) {
             return BookCommand.RegisterBook.builder()
                 .title(bookInfo.getTitle())
                 .author(bookInfo.getAuthor())

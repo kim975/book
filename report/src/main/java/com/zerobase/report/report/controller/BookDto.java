@@ -1,5 +1,6 @@
 package com.zerobase.report.report.controller;
 
+import com.zerobase.report.report.application.BookFacadeDto;
 import com.zerobase.report.report.service.BookInfo;
 import java.time.LocalDate;
 import lombok.Builder;
@@ -14,14 +15,16 @@ public class BookDto {
     @Builder
     @ToString
     public static class BookSearchResponse {
+
         private String title;
         private String author;
         private String publisher;
         private String isbn;
         private String thumbnailImageUrl;
         private LocalDate publishedDate;
+        private String dataType;
 
-        public static BookDto.BookSearchResponse fromBookInfo(BookInfo.Main bookInfo) {
+        public static BookDto.BookSearchResponse fromBookInfo(BookFacadeDto.BookResponse bookInfo) {
             return BookSearchResponse.builder()
                 .title(bookInfo.getTitle())
                 .author(bookInfo.getAuthor())
@@ -29,6 +32,7 @@ public class BookDto {
                 .isbn(bookInfo.getIsbn())
                 .thumbnailImageUrl(bookInfo.getThumbnailImageUrl())
                 .publishedDate(bookInfo.getPublishedDate())
+                .dataType(bookInfo.getDataType().toString())
                 .build();
         }
     }

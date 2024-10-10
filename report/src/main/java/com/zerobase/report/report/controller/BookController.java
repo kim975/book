@@ -2,11 +2,11 @@ package com.zerobase.report.report.controller;
 
 import com.zerobase.report.common.response.CommonResponse;
 import com.zerobase.report.report.application.BookFacade;
+import com.zerobase.report.report.application.BookFacadeDto;
 import com.zerobase.report.report.controller.BookDto.BookSearchResponse;
-import com.zerobase.report.report.service.BookInfo;
-import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,23 +20,25 @@ public class BookController {
     private final BookFacade bookFacade;
 
     @GetMapping("/books")
-    public CommonResponse<List<BookDto.BookSearchResponse>> findBook(
+    public CommonResponse<Page<BookSearchResponse>> findBook(
         @RequestParam String bookTitle,
+        @RequestParam(defaultValue = "5") int page,
+        @RequestParam(defaultValue = "0") int size,
         @RequestParam(defaultValue = "false") boolean onlyApi
     ) {
 
-        List<BookInfo.Main> bookListOnlyApi;
+        PageRequest pageRequest = PageRequest.of(page, size);
+
+        Page<BookFacadeDto.BookResponse> bookPage;
 
         if (onlyApi) {
-            bookListOnlyApi = bookFacade.findBookListOnlyApi(bookTitle);
+            bookPage = bookFacade.findBookListOnlyApi(bookTitle, pageRequest);
         } else {
-            bookListOnlyApi = bookFacade.findBookList(bookTitle);
+            bookPage = bookFacade.findBookListWithPage(bookTitle, pageRequest);
         }
 
         return CommonResponse.success(
-            bookListOnlyApi.stream()
-                .map(BookSearchResponse::fromBookInfo)
-                .collect(Collectors.toList())
+            bookPage.map(BookSearchResponse::fromBookInfo)
         );
     }
 

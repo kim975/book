@@ -1,12 +1,15 @@
 package com.zerobase.report.api;
 
-import com.zerobase.report.report.service.BookInfo;
+import com.zerobase.report.report.service.BookInfo.BookApiDetail;
 import java.util.List;
+import org.springframework.data.domain.Page;
 
 public interface BookApi {
 
-    List<BookInfo.BookApiInfo> findBookList(BookSearchForm bookSearchForm);
+    Page<BookApiDetail> findBookListWithPage(BookSearchForm bookSearchForm);
 
-    BookInfo.BookApiInfo findBookDetail(BookSearchForm bookSearchForm);
+    List<BookApiDetail> findBookList(BookSearchForm bookSearchForm);
+
+    BookApiDetail findBookDetail(BookSearchForm bookSearchForm);
 
 }

@@ -5,19 +5,20 @@ import com.zerobase.report.api.BookApi;
 import com.zerobase.report.api.BookSearchForm;
 import com.zerobase.report.exception.ApiErrorCode;
 import com.zerobase.report.exception.ApiException;
-import com.zerobase.report.report.service.BookInfo;
-import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.net.http.HttpResponse.BodyHandlers;
-import java.time.Duration;
+import com.zerobase.report.report.service.BookInfo.BookApiDetail;
+import com.zerobase.report.report.service.BookInfo.BookApiMain;
+import com.zerobase.report.util.PageUtil;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @Slf4j
 @Component
@@ -31,53 +32,59 @@ public class NaverBookApi implements BookApi {
     private String naverClientSecret;
 
     private final ObjectMapper objectMapper;
+    private final RestTemplate restTemplate;
+
+    private final String SEARCH_LIST = "book.json";
+    private final String SEARCH_DETAIL = "book_adv.json";
 
     @Override
-    public List<BookInfo.BookApiInfo> findBookList(BookSearchForm bookSearchForm) {
-        return searchBook(bookSearchForm, "https://openapi.naver.com/v1/search/book.json?");
+    public List<BookApiDetail> findBookList(BookSearchForm bookSearchForm) {
+        return searchBook(bookSearchForm, SEARCH_LIST).getBookApiDetailList();
     }
 
     @Override
-    public BookInfo.BookApiInfo findBookDetail(BookSearchForm bookSearchForm) {
+    public Page<BookApiDetail> findBookListWithPage(BookSearchForm bookSearchForm) {
+        BookApiMain bookApiMain = searchBook(bookSearchForm, SEARCH_LIST);
+        return PageUtil.makePage(bookApiMain.getBookApiDetailList(), bookApiMain.getPage(), bookApiMain.getSize(), bookApiMain.getTotal());
+    }
 
-        List<BookInfo.BookApiInfo> bookInfoList = searchBook(bookSearchForm, "https://openapi.naver.com/v1/search/book_adv.json?");
+    @Override
+    public BookApiDetail findBookDetail(BookSearchForm bookSearchForm) {
 
-        if (bookInfoList.isEmpty()) {
+        List<BookApiDetail> bookApiDetailList = searchBook(bookSearchForm, SEARCH_DETAIL).getBookApiDetailList();
+
+        if (bookApiDetailList.isEmpty()) {
             throw new ApiException(ApiErrorCode.NOT_FOUND_BOOK);
         }
 
-        if (bookInfoList.size() >= 2) {
+        if (bookApiDetailList.size() >= 2) {
             throw new ApiException(ApiErrorCode.IS_NOT_UNIQUE);
         }
 
-        return bookInfoList.get(0);
+        return bookApiDetailList.get(0);
     }
 
-    private List<BookInfo.BookApiInfo> searchBook(BookSearchForm bookSearchForm, String url) {
+    private BookApiMain searchBook(BookSearchForm bookSearchForm, String searchTypeUrl) {
 
-        HttpRequest request = HttpRequest.newBuilder()
-            .uri(URI.create(url + bookSearchForm.makeQueryParam()))
-            .setHeader("X-Naver-Client-Id", naverClientId)
-            .setHeader("X-Naver-Client-Secret", naverClientSecret)
-            .setHeader("Content-Type", "application/json")
-            .GET()
-            .timeout(Duration.ofSeconds(10))
-            .build();
+        UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.newInstance()
+            .scheme("https")
+            .host("openapi.naver.com")
+            .path("/v1/search/" + searchTypeUrl);
 
-        try (HttpClient httpClient = HttpClient.newHttpClient()) {
+        bookSearchForm.makeQueryParam(uriComponentsBuilder).build();
 
-            HttpResponse<String> response = httpClient.send(request, BodyHandlers.ofString());
-            String body = response.body();
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("X-Naver-Client-Id", naverClientId);
+        headers.set("X-Naver-Client-Secret", naverClientSecret);
 
-            NaverBookResponse naverBookResponse = objectMapper.readValue(body, NaverBookResponse.class);
-
-            return naverBookResponse.toBookApiInfo();
-        } catch (IOException e) {
-            throw new ApiException(ApiErrorCode.COMMON_API_ERROR);
-        } catch (InterruptedException e) {
-            throw new ApiException(ApiErrorCode.COMMON_API_ERROR);
-        }
-
+        return restTemplate.exchange(
+                uriComponentsBuilder.build().toString(),
+                HttpMethod.GET,
+                new HttpEntity<>(headers),
+                NaverBookResponse.class
+            )
+            .getBody()
+            .toBookApiMain();
     }
 
 }
