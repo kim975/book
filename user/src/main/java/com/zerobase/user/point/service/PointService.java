@@ -1,5 +1,6 @@
 package com.zerobase.user.point.service;
 
+import com.zerobase.user.aop.PointLock;
 import com.zerobase.user.point.domain.model.PointEntity;
 import com.zerobase.user.point.domain.model.PointHistoryEntity;
 import com.zerobase.user.point.domain.model.PointType;
@@ -15,7 +16,7 @@ public class PointService {
     private final PointReader pointReader;
     private final PointStore pointStore;
 
-    // TODO 레디스 사용 하기
+    @PointLock
     public PointInfo.AddPoint addPoint(PointCommand.AddPoint command) {
 
         PointEntity point = pointReader.getPointByUser(command.getUserId());
