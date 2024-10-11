@@ -1,7 +1,7 @@
 package com.zerobase.user.lock;
 
-import com.zerobase.user.exception.BaseException;
 import com.zerobase.user.exception.BasicErrorCode;
+import com.zerobase.user.exception.LockException;
 import java.util.concurrent.TimeUnit;
 import lombok.RequiredArgsConstructor;
 import org.redisson.api.RLock;
@@ -14,26 +14,23 @@ public class LockService {
 
     private final RedissonClient redisson;
 
-    public void pointLock(Long userId) {
-        RLock lock = redisson.getLock(getLockKey(userId));
+    public void lock(String key) throws LockException {
+        RLock lock = redisson.getLock(key);
 
         boolean isLock = false;
         try {
             isLock = lock.tryLock(20, 10, TimeUnit.SECONDS);
             if (!isLock) {
-                throw new BaseException(BasicErrorCode.COMMON_POINT_ERROR);
+                throw new LockException(BasicErrorCode.COMMON_SYSTEM_ERROR);
             }
         } catch (InterruptedException e) {
-            throw new BaseException(BasicErrorCode.COMMON_POINT_ERROR);
+            throw new LockException(BasicErrorCode.COMMON_SYSTEM_ERROR);
         }
     }
 
-    public void pointUnlock(Long userId) {
-        redisson.getLock(getLockKey(userId)).unlock();
+    public void unlock(String key) {
+        redisson.getLock(key).unlock();
     }
 
-    private static String getLockKey(Long userId) {
-        return "POINT_LOCK: " + userId;
-    }
 
 }
