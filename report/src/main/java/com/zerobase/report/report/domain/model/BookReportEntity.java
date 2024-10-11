@@ -38,6 +38,6 @@ public class BookReportEntity extends BaseEntity {
 
     private String text;
 
-    private boolean reveal;
+    private Boolean reveal;
 
 }
