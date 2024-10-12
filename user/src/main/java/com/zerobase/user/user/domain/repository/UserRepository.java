@@ -1,9 +1,9 @@
 package com.zerobase.user.user.domain.repository;
 
 import com.zerobase.user.user.domain.model.UserEntity;
-import org.springframework.data.jpa.repository.JpaRepository;
-
+import java.util.List;
 import java.util.Optional;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
@@ -18,4 +18,16 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     Optional<UserEntity> findByLoginIdAndPassword(String LoginId, String password);
 
     Optional<UserEntity> findByUserUuid(String userUuid);
+
+    Optional<UserEntity> findByNickname(String nickname);
+
+    Optional<UserEntity> findByLoginId(String query);
+
+    List<UserEntity> findAllByUserUuidIn(List<String> userUuids);
+
+    List<UserEntity> findAllByNicknameIn(List<String> nicknames);
+
+    List<UserEntity> findAllByIdIn(List<Long> ids);
+
+    List<UserEntity> findAllByLoginIdIn(List<String> loginIds);
 }
