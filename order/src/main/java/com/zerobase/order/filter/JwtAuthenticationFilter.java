@@ -1,15 +1,15 @@
-package com.zerobase.user.filter;
+package com.zerobase.order.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.zerobase.user.common.properties.JwtConstant;
-import com.zerobase.user.common.response.CommonResponse;
-import com.zerobase.user.exception.BaseException;
-import com.zerobase.user.exception.JwtCustomException;
-import com.zerobase.user.security.TokenProvider;
+import com.zerobase.order.common.properties.JwtConstant;
+import com.zerobase.order.common.response.CommonResponse;
+import com.zerobase.order.exception.JwtCustomException;
+import com.zerobase.order.security.TokenProvider;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,8 +19,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
-
-import java.io.IOException;
 
 @Component
 @RequiredArgsConstructor
@@ -38,7 +36,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 Authentication auth = tokenProvider.getAuthentication(token);
                 SecurityContextHolder.getContext().setAuthentication(auth);
             }
-        } catch (BaseException e) {
+        } catch (JwtCustomException e) {
             setErrorResponse(response, e);
             return;
         }
@@ -46,7 +44,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    private void setErrorResponse(HttpServletResponse response, BaseException e) throws IOException {
+    private void setErrorResponse(HttpServletResponse response, JwtCustomException e) throws IOException {
         response.setStatus(HttpStatus.OK.value());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.getWriter().write(objectMapper.writeValueAsString(

@@ -1,8 +1,8 @@
-package com.zerobase.report.common.response;
+package com.zerobase.order.common.response;
 
-import com.zerobase.report.exception.ApiException;
-import com.zerobase.report.exception.BaseException;
-import com.zerobase.report.exception.BasicErrorCode;
+import com.zerobase.order.exception.ApiException;
+import com.zerobase.order.exception.BaseException;
+import com.zerobase.order.exception.BasicErrorCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authorization.AuthorizationDeniedException;
