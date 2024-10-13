@@ -17,4 +17,5 @@ public interface BookReader {
 
     BookEntity getBookById(Long bookId);
 
+    List<BookEntity> getAllBook();
 }

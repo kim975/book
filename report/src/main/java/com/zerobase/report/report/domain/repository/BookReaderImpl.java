@@ -54,4 +54,10 @@ public class BookReaderImpl implements BookReader, ReportReader {
 
         return report.get().getBookReportSeq();
     }
+
+    @Override
+    public List<BookEntity> getAllBook() {
+        return bookRepository.findAll();
+    }
+
 }
