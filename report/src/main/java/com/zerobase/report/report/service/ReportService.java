@@ -1,5 +1,6 @@
 package com.zerobase.report.report.service;
 
+import com.zerobase.report.aop.ReportSeqLock;
 import com.zerobase.report.report.domain.model.BookEntity;
 import com.zerobase.report.report.domain.model.BookReportEntity;
 import com.zerobase.report.report.domain.repository.BookReader;
@@ -16,6 +17,7 @@ public class ReportService {
     private final ReportStore reportStore;
     private final BookReader bookReader;
 
+    @ReportSeqLock
     public ReportInfo.Main createReport(ReportCommand.CreateReport command) {
         BookEntity book = bookReader.getBookById(command.getBookId());
         Long reportSeq = reportReader.getTopSeqByUserId(command.getUserId());

@@ -1,5 +1,7 @@
 package com.zerobase.report.report.service;
 
+import com.zerobase.report.aop.ReportSeqLock;
+import com.zerobase.report.aop.ReportSeqLockInterface;
 import com.zerobase.report.report.domain.model.BookEntity;
 import com.zerobase.report.report.domain.model.BookReportEntity;
 import java.time.LocalDateTime;
@@ -14,7 +16,7 @@ public class ReportCommand {
     @Setter
     @Builder
     @ToString
-    public static class CreateReport {
+    public static class CreateReport implements ReportSeqLockInterface {
 
         private Long bookId;
         private Long userId;
