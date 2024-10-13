@@ -2,17 +2,18 @@ package com.zerobase.report.report.application;
 
 import com.zerobase.report.api.BookApi;
 import com.zerobase.report.api.BookSearchForm;
+import com.zerobase.report.api.user.UserApi;
+import com.zerobase.report.api.user.UserApiDto;
 import com.zerobase.report.report.application.BookFacadeDto.BookResponse;
 import com.zerobase.report.report.application.BookFacadeDto.BookResponse.DataType;
 import com.zerobase.report.report.service.BookCommand.RegisterBook;
 import com.zerobase.report.report.service.BookInfo;
 import com.zerobase.report.report.service.BookInfo.BookApiDetail;
 import com.zerobase.report.report.service.BookService;
-import java.util.List;
+import com.zerobase.report.report.service.ReportInfo;
+import com.zerobase.report.report.service.ReportService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,9 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class BookFacade {
 
+    private final UserApi userApi;
     private final BookService bookService;
+    private final ReportService reportService;
     private final BookApi bookApi;
 
     public Page<BookResponse> findBookListWithPage(String bookTitle, Pageable pageable) {
@@ -64,8 +67,8 @@ public class BookFacade {
 
     }
 
-    private <T extends List<T>> Page makePage(T data, int page, int size, int totalCount) {
-        return new PageImpl<>(data, PageRequest.of(page, size), totalCount);
+    public ReportInfo.Main createReport(BookFacadeDto.CreateReportRequest dto) {
+        UserApiDto user = userApi.getUser(dto.getUserUuid());
+        return reportService.createReport(dto.toCommand(user.getData().getId()));
     }
-
 }

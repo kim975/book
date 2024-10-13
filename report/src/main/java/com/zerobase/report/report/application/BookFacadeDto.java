@@ -2,7 +2,9 @@ package com.zerobase.report.report.application;
 
 import com.zerobase.report.report.service.BookInfo;
 import com.zerobase.report.report.service.BookInfo.BookApiDetail;
+import com.zerobase.report.report.service.ReportCommand;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -52,6 +54,29 @@ public class BookFacadeDto {
             API, DB
         }
 
+    }
+
+    @Getter
+    @Setter
+    @Builder
+    @ToString
+    public static class CreateReportRequest {
+
+        private Long bookId;
+        private String userUuid;
+        private LocalDateTime readDatetime;
+        private String text;
+        private Boolean reveal;
+
+        public ReportCommand.CreateReport toCommand(Long userId) {
+            return ReportCommand.CreateReport.builder()
+                .bookId(bookId)
+                .userId(userId)
+                .readDatetime(readDatetime)
+                .text(text)
+                .reveal(reveal)
+                .build();
+        }
     }
 
 }

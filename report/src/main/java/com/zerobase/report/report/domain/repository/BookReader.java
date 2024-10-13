@@ -14,4 +14,7 @@ public interface BookReader {
     boolean isExistsBookByIsbn(String isbn);
 
     BookEntity getBookByIsbn(String isbn);
+
+    BookEntity getBookById(Long bookId);
+
 }
