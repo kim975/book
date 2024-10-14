@@ -16,7 +16,7 @@ public class BookSearchForm {
     @Builder.Default
     private int display = 100; //max 100
     @Builder.Default
-    private int start = 1; //max 100 // 스프링 Pageable 에서 시작은 0 쿼리 파라미터 만드시 +1 하도록 처리
+    private int start = 0; //max 100 // 스프링 Pageable 에서 시작은 0 쿼리 파라미터 만드시 +1 하도록 처리
     @Builder.Default
     private String sort = "sim"; // sim/date
     private String dTitle;

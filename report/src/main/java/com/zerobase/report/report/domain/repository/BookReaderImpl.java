@@ -54,4 +54,15 @@ public class BookReaderImpl implements BookReader, ReportReader {
 
         return report.get().getBookReportSeq();
     }
+
+    @Override
+    public Page<BookEntity> getAllBookWithPage(Pageable pageable) {
+        return bookRepository.findAll(pageable);
+    }
+
+    @Override
+    public long countBook() {
+        return bookRepository.count();
+    }
+
 }
