@@ -16,4 +16,9 @@ public class FollowReaderImpl implements FollowReader {
     public FollowEntity getFollow(Long userId, Long followUserId) {
         return followRepository.findByUserIdAndFollowUserId(userId, followUserId).orElseThrow(() -> new BaseException(FollowErrorCode.NOT_FOUND_FOLLOW));
     }
+
+    @Override
+    public boolean isFollowed(Long userId, Long followUserId) {
+        return followRepository.findByUserIdAndFollowUserId(userId, followUserId).isPresent();
+    }
 }

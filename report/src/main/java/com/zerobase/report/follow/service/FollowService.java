@@ -1,5 +1,7 @@
 package com.zerobase.report.follow.service;
 
+import com.zerobase.report.exception.BaseException;
+import com.zerobase.report.exception.FollowErrorCode;
 import com.zerobase.report.follow.domain.model.FollowEntity;
 import com.zerobase.report.follow.domain.repository.FollowReader;
 import com.zerobase.report.follow.domain.repository.FollowStore;
@@ -15,6 +17,11 @@ public class FollowService {
     private final FollowStore followStore;
 
     public void registerFollow(Main command) {
+
+        if (followReader.isFollowed(command.getUserId(), command.getFollowUserId())) {
+            throw new BaseException(FollowErrorCode.ALREADY_FOLLOW);
+        }
+
         followStore.store(command.toEntity());
     }
 
