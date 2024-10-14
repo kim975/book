@@ -6,6 +6,7 @@ import com.zerobase.report.follow.domain.model.FollowEntity;
 import com.zerobase.report.follow.domain.repository.FollowReader;
 import com.zerobase.report.follow.domain.repository.FollowStore;
 import com.zerobase.report.follow.service.FollowCommand.Main;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -29,5 +30,19 @@ public class FollowService {
 
         FollowEntity follow = followReader.getFollow(command.getUserId(), command.getFollowUserId());
         followStore.delete(follow);
+    }
+
+    public List<FollowInfo> getFollowList(Long userId) {
+        return followReader.getFollows(userId)
+            .stream()
+            .map(FollowInfo::fromEntity)
+            .toList();
+    }
+
+    public List<FollowInfo> getFollowerList(Long userId) {
+        return followReader.getFollowers(userId)
+            .stream()
+            .map(FollowInfo::fromEntity)
+            .toList();
     }
 }

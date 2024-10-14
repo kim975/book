@@ -11,29 +11,29 @@ public class UserApiDto {
     @Getter
     @Setter
     @ToString
+    public static class UserResponse {
+
+        private String result;
+        private UserDetail data;
+        private String message;
+        private String errorCode;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    public static class UserListResponse {
+
+        private String result;
+        private List<UserDetail> data;
+        private String message;
+        private String errorCode;
+    }
+
+    @Getter
+    @Setter
+    @ToString
     public static class UserDetail {
-
-        private String result;
-        private Data data;
-        private String message;
-        private String errorCode;
-    }
-
-    @Getter
-    @Setter
-    @ToString
-    public static class UserDetailList {
-
-        private String result;
-        private List<Data> data;
-        private String message;
-        private String errorCode;
-    }
-
-    @Getter
-    @Setter
-    @ToString
-    public static class Data {
 
         private Long id;
         private String loginId;

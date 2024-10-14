@@ -1,11 +1,13 @@
 package com.zerobase.report.follow.application;
 
 import com.zerobase.report.api.user.UserApi;
-import com.zerobase.report.api.user.UserApiDto;
-import com.zerobase.report.api.user.UserApiDto.UserDetailList;
+import com.zerobase.report.api.user.UserApiDto.UserDetail;
+import com.zerobase.report.api.user.UserApiDto.UserResponse;
 import com.zerobase.report.api.user.UserSearchType;
+import com.zerobase.report.follow.application.FollowFacadeDto.FollowUserInfoResponse;
 import com.zerobase.report.follow.application.FollowFacadeDto.MainRequest;
 import com.zerobase.report.follow.service.FollowCommand.Main;
+import com.zerobase.report.follow.service.FollowInfo;
 import com.zerobase.report.follow.service.FollowService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +22,8 @@ public class FollowFacade {
 
     public void registerFollow(MainRequest dto) {
 
-        UserApiDto.UserDetail user = userApi.getUser(dto.getUserUuid(), UserSearchType.USER_UUID);
-        UserApiDto.UserDetail followUser = userApi.getUser(dto.getFollowUserNickName(), UserSearchType.NICKNAME);
+        UserResponse user = userApi.getUser(dto.getUserUuid(), UserSearchType.USER_UUID);
+        UserResponse followUser = userApi.getUser(dto.getFollowUserNickName(), UserSearchType.NICKNAME);
 
         followService.registerFollow(
             Main.builder()
@@ -33,8 +35,8 @@ public class FollowFacade {
     }
 
     public void unfollow(MainRequest dto) {
-        UserApiDto.UserDetail user = userApi.getUser(dto.getUserUuid(), UserSearchType.USER_UUID);
-        UserApiDto.UserDetail followUser = userApi.getUser(dto.getFollowUserNickName(), UserSearchType.NICKNAME);
+        UserResponse user = userApi.getUser(dto.getUserUuid(), UserSearchType.USER_UUID);
+        UserResponse followUser = userApi.getUser(dto.getFollowUserNickName(), UserSearchType.NICKNAME);
 
         followService.unfollow(
             Main.builder()
@@ -42,5 +44,42 @@ public class FollowFacade {
                 .followUserId(followUser.getData().getId())
                 .build()
         );
+    }
+
+    public List<FollowFacadeDto.FollowUserInfoResponse> getFollowUserInfo(String userUuid) {
+
+        UserResponse user = userApi.getUser(userUuid, UserSearchType.USER_UUID);
+
+        List<FollowInfo> followList = followService.getFollowList(user.getData().getId());
+
+        List<UserDetail> userList = userApi.getUsers(
+            followList.stream()
+                .map(userInfo -> String.valueOf(userInfo.getFollowUserId()))
+                .toList()
+            , UserSearchType.USER_ID
+        ).getData();
+
+        return userList.stream()
+            .map(FollowUserInfoResponse::from)
+            .toList();
+
+    }
+
+    public List<FollowFacadeDto.FollowUserInfoResponse> getFollowerUserInfo(String userUuid) {
+
+        UserResponse user = userApi.getUser(userUuid, UserSearchType.USER_UUID);
+
+        List<FollowInfo> followList = followService.getFollowerList((user.getData().getId()));
+
+        List<UserDetail> userList = userApi.getUsers(
+            followList.stream()
+                .map(userInfo -> String.valueOf(userInfo.getFollowUserId()))
+                .toList()
+            , UserSearchType.USER_ID
+        ).getData();
+
+        return userList.stream()
+            .map(FollowUserInfoResponse::from)
+            .toList();
     }
 }
