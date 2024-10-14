@@ -2,6 +2,7 @@ package com.zerobase.user.user.service;
 
 import com.zerobase.user.user.domain.model.UserEntity;
 import com.zerobase.user.user.domain.model.UserRole;
+import com.zerobase.user.user.domain.model.UserSearchType;
 import com.zerobase.user.user.domain.repository.UserReader;
 import com.zerobase.user.user.domain.repository.UserStore;
 import com.zerobase.user.exception.BaseException;
@@ -51,6 +52,17 @@ public class UserService {
         }
 
         return UserInfo.UserDetail.fromEntity(user);
+    }
+
+    public UserInfo.UserDetail getUserDetailByQuery(String query, UserSearchType searchType) {
+        return UserInfo.UserDetail.fromEntity(userReader.getUserByQuery(query, searchType));
+    }
+
+    public List<UserInfo.UserDetail> getAllUserDetailByQuery(List<String> query, UserSearchType searchType) {
+        return userReader.getAllUserByQuery(query, searchType)
+            .stream()
+            .map(UserInfo.UserDetail::fromEntity)
+            .toList();
     }
 
     public UserInfo.UserDetail modifyUserInfo(UserCommand.ModifyUser command) {
