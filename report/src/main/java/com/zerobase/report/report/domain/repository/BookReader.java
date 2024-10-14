@@ -17,5 +17,7 @@ public interface BookReader {
 
     BookEntity getBookById(Long bookId);
 
-    List<BookEntity> getAllBook();
+    Page<BookEntity> getAllBookWithPage(Pageable pageable);
+
+    long countBook();
 }

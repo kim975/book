@@ -10,6 +10,8 @@ import com.zerobase.report.report.service.BookInfo.BookApiDetail;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,31 +25,40 @@ public class BookSchedule {
     private final BookStore bookStore;
     private final BookApi bookApi;
 
-    @Scheduled(cron = "0 45 1 * * *")
+    private final static int PAGE_SIZE = 1000;
+
+    @Scheduled(cron = "0 29 1 * * *")
     @Transactional
     public void syncBookSchedule() {
-        List<BookEntity> allBook = bookReader.getAllBook();
 
-        for (BookEntity book : allBook) {
+        long totalCount = bookReader.countBook();
+        long totalPages = (long) Math.ceil((double) totalCount / PAGE_SIZE);
 
-            String isbn = book.getIsbn();
-            BookApiDetail bookDetail;
-            try {
-                bookDetail = bookApi.findBookDetail(BookSearchForm.builder()
-                    .dIsbn(isbn)
-                    .build());
+        for (int i = 0; i < totalPages; i++) {
 
-            } catch (ApiException e) {
-                log.error(String.format("isbn=%s error=%s", isbn, e.getMessage()));
-                continue;
+            Page<BookEntity> allBookWithPage = bookReader.getAllBookWithPage(PageRequest.of(i, PAGE_SIZE));
+
+            for (BookEntity book : allBookWithPage.getContent()) {
+
+                String isbn = book.getIsbn();
+                BookApiDetail bookDetail;
+                try {
+                    bookDetail = bookApi.findBookDetail(BookSearchForm.builder()
+                        .dIsbn(isbn)
+                        .build());
+
+                } catch (ApiException e) {
+                    log.error("isbn=%s error=%s", isbn, e.getMessage());
+                    continue;
+                }
+
+                book.setAuthor(bookDetail.getAuthor());
+                book.setTitle(bookDetail.getTitle());
+                book.setPublisher(bookDetail.getPublisher());
+                book.setPublishedDate(bookDetail.getPublishedDate());
+                book.setThumbnailImageUrl(bookDetail.getThumbnailImageUrl());
+
             }
-
-            book.setAuthor(bookDetail.getAuthor());
-            book.setTitle(bookDetail.getTitle());
-            book.setPublisher(bookDetail.getPublisher());
-            book.setPublishedDate(bookDetail.getPublishedDate());
-            book.setThumbnailImageUrl(bookDetail.getThumbnailImageUrl());
-
         }
 
     }
