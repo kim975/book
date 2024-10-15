@@ -54,9 +54,8 @@ public class FollowFacade {
 
         List<UserDetail> userList = userApi.getUsers(
             followList.stream()
-                .map(userInfo -> String.valueOf(userInfo.getFollowUserId()))
+                .map(FollowInfo::getFollowUserId)
                 .toList()
-            , UserSearchType.USER_ID
         ).getData();
 
         return userList.stream()
@@ -73,9 +72,8 @@ public class FollowFacade {
 
         List<UserDetail> userList = userApi.getUsers(
             followList.stream()
-                .map(userInfo -> String.valueOf(userInfo.getFollowUserId()))
+                .map(FollowInfo::getFollowUserId)
                 .toList()
-            , UserSearchType.USER_ID
         ).getData();
 
         return userList.stream()

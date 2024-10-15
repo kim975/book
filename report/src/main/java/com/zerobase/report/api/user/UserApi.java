@@ -40,4 +40,17 @@ public class UserApi {
         return restTemplate.getForObject(uriComponentsBuilder.build().toString(), UserListResponse.class);
     }
 
+    public UserListResponse getUsers(List<Long> query) {
+
+        UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.newInstance()
+            .scheme("http")
+            .host("localhost")
+            .port(8080)
+            .path("/internal/api/v1/users")
+            .queryParam("query", query)
+            .queryParam("searchType", UserSearchType.USER_ID);
+
+        return restTemplate.getForObject(uriComponentsBuilder.build().toString(), UserListResponse.class);
+    }
+
 }
