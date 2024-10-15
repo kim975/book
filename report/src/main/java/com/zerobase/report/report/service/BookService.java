@@ -41,4 +41,5 @@ public class BookService {
     public Main registerBook(RegisterBook registerBook) {
         return Main.fromEntity(bookStore.store(registerBook.toEntity()));
     }
+
 }

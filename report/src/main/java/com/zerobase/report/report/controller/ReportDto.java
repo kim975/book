@@ -14,6 +14,30 @@ public class ReportDto {
 
     @Getter
     @Setter
+    @Builder
+    @ToString
+    public static class ReportDetailResponse {
+
+        private ReportDto.Book book;
+        private Long bookReportSeq;
+        private LocalDateTime readDateTime;
+        private String text;
+        private Boolean reveal;
+        private String userNickname;
+
+        public static ReportDto.CreateReportResponse from(ReportInfo.Main report) {
+            return CreateReportResponse.builder()
+                .book(Book.from(report.getBook()))
+                .bookReportSeq(report.getBookReportSeq())
+                .readDateTime(report.getReadDateTime())
+                .text(report.getText())
+                .reveal(report.getReveal())
+                .build();
+        }
+    }
+
+    @Getter
+    @Setter
     @ToString
     public static class CreateReportRequest {
 
