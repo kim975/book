@@ -1,5 +1,7 @@
 package com.zerobase.report.api.user;
 
+import com.zerobase.report.api.user.UserApiDto.UserListResponse;
+import com.zerobase.report.api.user.UserApiDto.UserResponse;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -12,7 +14,7 @@ public class UserApi {
 
     private final RestTemplate restTemplate;
 
-    public UserApiDto.UserDetail getUser(String query, UserSearchType searchType) {
+    public UserResponse getUser(String query, UserSearchType searchType) {
 
         UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.newInstance()
             .scheme("http")
@@ -22,10 +24,10 @@ public class UserApi {
             .queryParam("query", query)
             .queryParam("searchType", searchType.getSearchType());
 
-        return restTemplate.getForObject(uriComponentsBuilder.build().toString(), UserApiDto.UserDetail.class);
+        return restTemplate.getForObject(uriComponentsBuilder.build().toString(), UserResponse.class);
     }
 
-    public UserApiDto.UserDetailList getUsers(List<String> query, UserSearchType searchType) {
+    public UserListResponse getUsers(List<String> query, UserSearchType searchType) {
 
         UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.newInstance()
             .scheme("http")
@@ -35,7 +37,20 @@ public class UserApi {
             .queryParam("query", query)
             .queryParam("searchType", searchType.getSearchType());
 
-        return restTemplate.getForObject(uriComponentsBuilder.build().toString(), UserApiDto.UserDetailList.class);
+        return restTemplate.getForObject(uriComponentsBuilder.build().toString(), UserListResponse.class);
+    }
+
+    public UserListResponse getUsers(List<Long> query) {
+
+        UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.newInstance()
+            .scheme("http")
+            .host("localhost")
+            .port(8080)
+            .path("/internal/api/v1/users")
+            .queryParam("query", query)
+            .queryParam("searchType", UserSearchType.USER_ID);
+
+        return restTemplate.getForObject(uriComponentsBuilder.build().toString(), UserListResponse.class);
     }
 
 }

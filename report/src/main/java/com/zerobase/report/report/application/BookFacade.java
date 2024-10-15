@@ -3,7 +3,7 @@ package com.zerobase.report.report.application;
 import com.zerobase.report.api.BookApi;
 import com.zerobase.report.api.BookSearchForm;
 import com.zerobase.report.api.user.UserApi;
-import com.zerobase.report.api.user.UserApiDto;
+import com.zerobase.report.api.user.UserApiDto.UserResponse;
 import com.zerobase.report.api.user.UserSearchType;
 import com.zerobase.report.report.application.BookFacadeDto.BookResponse;
 import com.zerobase.report.report.application.BookFacadeDto.BookResponse.DataType;
@@ -69,7 +69,7 @@ public class BookFacade {
     }
 
     public ReportInfo.Main createReport(BookFacadeDto.CreateReportRequest dto) {
-        UserApiDto.UserDetail user = userApi.getUser(dto.getUserUuid(), UserSearchType.USER_UUID);
+        UserResponse user = userApi.getUser(dto.getUserUuid(), UserSearchType.USER_UUID);
         return reportService.createReport(dto.toCommand(user.getData().getId()));
     }
 }
