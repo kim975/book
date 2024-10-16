@@ -56,6 +56,28 @@ public class BookReaderImpl implements BookReader, ReportReader {
     }
 
     @Override
+    public BookReportEntity getMyReport(Long userId, Long reportSeq) {
+        return bookReportRepository.findByUserIdAndBookReportSeq(userId, reportSeq)
+            .orElseThrow(() -> new BaseException(BookErrorCode.NOT_FOUND_BOOK));
+    }
+
+    @Override
+    public Page<BookReportEntity> getMyReports(Long userId, Pageable pageable) {
+        return bookReportRepository.findByUserId(userId, pageable);
+    }
+
+    @Override
+    public BookReportEntity getReport(Long userId, Long reportSeq) {
+        return bookReportRepository.findByUserIdAndBookReportSeqAndReveal(userId, reportSeq, true)
+            .orElseThrow(() -> new BaseException(BookErrorCode.NOT_FOUND_BOOK));
+    }
+
+    @Override
+    public Page<BookReportEntity> getReports(List<Long> userIds, Pageable pageable) {
+        return bookReportRepository.findByUserIdInAndReveal(userIds, true);
+    }
+
+    @Override
     public Page<BookEntity> getAllBookWithPage(Pageable pageable) {
         return bookRepository.findAll(pageable);
     }

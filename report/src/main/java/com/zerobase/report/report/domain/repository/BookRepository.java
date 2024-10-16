@@ -1,6 +1,7 @@
 package com.zerobase.report.report.domain.repository;
 
 import com.zerobase.report.report.domain.model.BookEntity;
+import com.zerobase.report.report.domain.model.BookReportEntity;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
@@ -18,4 +19,5 @@ public interface BookRepository extends JpaRepository<BookEntity, Long> {
     Optional<BookEntity> findByIsbn(String isbn);
 
     Page<BookEntity> findAll(Pageable pageable);
+
 }
