@@ -5,6 +5,8 @@ import com.zerobase.report.api.user.UserApiDto.UserDetail;
 import com.zerobase.report.api.user.UserApiDto.UserListResponse;
 import com.zerobase.report.api.user.UserApiDto.UserResponse;
 import com.zerobase.report.api.user.UserSearchType;
+import com.zerobase.report.follow.service.FollowInfo;
+import com.zerobase.report.follow.service.FollowService;
 import com.zerobase.report.report.service.ReportInfo.Main;
 import com.zerobase.report.report.service.ReportService;
 import java.util.List;
@@ -20,6 +22,7 @@ import org.springframework.stereotype.Service;
 public class ReportFacade {
 
     private final ReportService reportService;
+    private final FollowService followService;
     private final UserApi userApi;
 
     public ReportFacadeDto.GetReportResponse getMyReport(String userUuid, Long reportSeq) {
@@ -63,6 +66,31 @@ public class ReportFacade {
                     .stream()
                     .filter(
                         user -> report.getUserId().equals(user.getId())
+                    )
+                    .findFirst()
+                    .get()
+            )
+        );
+    }
+
+    public Page<ReportFacadeDto.GetReportResponse> getFollowMainReport(String userUuid, Pageable pageable) {
+        UserResponse user = userApi.getUser(userUuid, UserSearchType.USER_UUID);
+        List<FollowInfo> followerList = followService.getFollowList(user.getData().getId());
+
+        Page<Main> reports = reportService.getReports(
+            followerList.stream()
+                .map(FollowInfo::getFollowUserId)
+                .toList()
+            , pageable
+        );
+
+        UserListResponse followUsers = userApi.getUsers(reports.stream().map(Main::getUserId).toList());
+
+        return reports.map(report -> ReportFacadeDto.GetReportResponse.from(report,
+            followUsers.getData()
+                    .stream()
+                    .filter(
+                        followUser -> report.getUserId().equals(followUser.getId())
                     )
                     .findFirst()
                     .get()

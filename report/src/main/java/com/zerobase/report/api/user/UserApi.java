@@ -48,7 +48,7 @@ public class UserApi {
             .port(8080)
             .path("/internal/api/v1/users")
             .queryParam("query", query)
-            .queryParam("searchType", UserSearchType.USER_ID);
+            .queryParam("searchType", UserSearchType.USER_ID.getSearchType());
 
         return restTemplate.getForObject(uriComponentsBuilder.build().toString(), UserListResponse.class);
     }

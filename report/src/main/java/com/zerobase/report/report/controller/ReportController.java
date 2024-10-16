@@ -85,4 +85,17 @@ public class ReportController {
                 .map(GetReportResponse::from)
         );
     }
+
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/main")
+    public CommonResponse<Page<GetReportResponse>> getFollowReport(
+        Authentication authentication,
+        @RequestParam(defaultValue = "10") int size,
+        @RequestParam(defaultValue = "0") int page
+    ) {
+        return CommonResponse.success(
+            reportFacade.getFollowMainReport(authentication.getName(), PageRequest.of(page, size))
+                .map(GetReportResponse::from)
+        );
+    }
 }
