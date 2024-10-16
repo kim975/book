@@ -22,8 +22,8 @@ public class BookController {
     @GetMapping("/books")
     public CommonResponse<Page<BookSearchResponse>> findBook(
         @RequestParam String bookTitle,
-        @RequestParam(defaultValue = "5") int page,
-        @RequestParam(defaultValue = "0") int size,
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "5") int size,
         @RequestParam(defaultValue = "false") boolean onlyApi
     ) {
 

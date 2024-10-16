@@ -73,7 +73,4 @@ public class BookFacade {
         return reportService.createReport(dto.toCommand(user.getData().getId()));
     }
 
-    public ReportFacadeDto getMyReport() {
-
-    }
 }

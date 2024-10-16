@@ -1,5 +1,6 @@
 package com.zerobase.report.report.application;
 
+import com.zerobase.report.report.application.ReportFacadeDto.UserDetail;
 import com.zerobase.report.report.service.BookInfo;
 import com.zerobase.report.report.service.BookInfo.BookApiDetail;
 import com.zerobase.report.report.service.ReportCommand;

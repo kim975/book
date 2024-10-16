@@ -1,6 +1,8 @@
 package com.zerobase.report.report.controller;
 
 import com.zerobase.report.report.application.BookFacadeDto;
+import com.zerobase.report.report.application.ReportFacadeDto;
+import com.zerobase.report.report.application.ReportFacadeDto.BookDetail;
 import com.zerobase.report.report.service.BookInfo;
 import com.zerobase.report.report.service.ReportInfo;
 import java.time.LocalDate;
@@ -16,23 +18,40 @@ public class ReportDto {
     @Setter
     @Builder
     @ToString
-    public static class ReportDetailResponse {
+    public static class GetReportResponse {
 
-        private ReportDto.Book book;
         private Long bookReportSeq;
         private LocalDateTime readDateTime;
         private String text;
         private Boolean reveal;
         private String userNickname;
+        private ReportDto.Book book;
+        private GetReportResponse.User user;
 
-        public static ReportDto.CreateReportResponse from(ReportInfo.Main report) {
-            return CreateReportResponse.builder()
+        public static GetReportResponse from(ReportFacadeDto.GetReportResponse report) {
+            return GetReportResponse.builder()
                 .book(Book.from(report.getBook()))
                 .bookReportSeq(report.getBookReportSeq())
                 .readDateTime(report.getReadDateTime())
                 .text(report.getText())
                 .reveal(report.getReveal())
+                .user(User.from(report.getUser()))
                 .build();
+        }
+
+        @Getter
+        @Setter
+        @Builder
+        @ToString
+        private static class User {
+
+            private String nickname;
+
+            public static User from(ReportFacadeDto.UserDetail user) {
+                return User.builder()
+                    .nickname(user.getNickname())
+                    .build();
+            }
         }
     }
 
@@ -96,6 +115,18 @@ public class ReportDto {
         private LocalDate publishedDate;
 
         public static ReportDto.Book from(BookInfo.Main bookInfo) {
+            return ReportDto.Book.builder()
+                .id(bookInfo.getId())
+                .title(bookInfo.getTitle())
+                .author(bookInfo.getAuthor())
+                .publisher(bookInfo.getPublisher())
+                .isbn(bookInfo.getIsbn())
+                .thumbnailImageUrl(bookInfo.getThumbnailImageUrl())
+                .publishedDate(bookInfo.getPublishedDate())
+                .build();
+        }
+
+        public static ReportDto.Book from(BookDetail bookInfo) {
             return ReportDto.Book.builder()
                 .id(bookInfo.getId())
                 .title(bookInfo.getTitle())

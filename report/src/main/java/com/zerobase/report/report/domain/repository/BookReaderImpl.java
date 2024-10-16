@@ -2,6 +2,7 @@ package com.zerobase.report.report.domain.repository;
 
 import com.zerobase.report.exception.BaseException;
 import com.zerobase.report.exception.BookErrorCode;
+import com.zerobase.report.exception.ReportErrorCode;
 import com.zerobase.report.report.domain.model.BookEntity;
 import com.zerobase.report.report.domain.model.BookReportEntity;
 import java.util.List;
@@ -58,7 +59,7 @@ public class BookReaderImpl implements BookReader, ReportReader {
     @Override
     public BookReportEntity getMyReport(Long userId, Long reportSeq) {
         return bookReportRepository.findByUserIdAndBookReportSeq(userId, reportSeq)
-            .orElseThrow(() -> new BaseException(BookErrorCode.NOT_FOUND_BOOK));
+            .orElseThrow(() -> new BaseException(ReportErrorCode.NOT_FOUND_REPORT));
     }
 
     @Override
@@ -69,12 +70,12 @@ public class BookReaderImpl implements BookReader, ReportReader {
     @Override
     public BookReportEntity getReport(Long userId, Long reportSeq) {
         return bookReportRepository.findByUserIdAndBookReportSeqAndReveal(userId, reportSeq, true)
-            .orElseThrow(() -> new BaseException(BookErrorCode.NOT_FOUND_BOOK));
+            .orElseThrow(() -> new BaseException(ReportErrorCode.NOT_FOUND_REPORT));
     }
 
     @Override
     public Page<BookReportEntity> getReports(List<Long> userIds, Pageable pageable) {
-        return bookReportRepository.findByUserIdInAndReveal(userIds, true);
+        return bookReportRepository.findByUserIdInAndReveal(userIds, true, pageable);
     }
 
     @Override
