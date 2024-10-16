@@ -3,6 +3,7 @@ package com.zerobase.report.report.controller;
 import com.zerobase.report.report.application.BookFacadeDto;
 import com.zerobase.report.report.application.ReportFacadeDto;
 import com.zerobase.report.report.application.ReportFacadeDto.BookDetail;
+import com.zerobase.report.report.application.ReportFacadeDto.ModifyReportRequest;
 import com.zerobase.report.report.service.BookInfo;
 import com.zerobase.report.report.service.ReportInfo;
 import java.time.LocalDate;
@@ -135,6 +136,50 @@ public class ReportDto {
                 .isbn(bookInfo.getIsbn())
                 .thumbnailImageUrl(bookInfo.getThumbnailImageUrl())
                 .publishedDate(bookInfo.getPublishedDate())
+                .build();
+        }
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    public static class ModifyReportRequest {
+        private Long bookId;
+        private LocalDateTime readDatetime; //yyyy-MM-ddTHH:mm:ss
+        private String text;
+        private Boolean reveal;
+
+        public ReportFacadeDto.ModifyReportRequest toDto(String userUuid, Long reportSeq) {
+            return ReportFacadeDto.ModifyReportRequest.builder()
+                .bookId(bookId)
+                .readDatetime(readDatetime)
+                .text(text)
+                .reveal(reveal)
+                .reportSeq(reportSeq)
+                .userUuid(userUuid)
+                .build();
+        }
+    }
+
+    @Getter
+    @Setter
+    @Builder
+    @ToString
+    public static class ModifyReportResponse {
+
+        private ReportDto.Book book;
+        private Long bookReportSeq;
+        private LocalDateTime readDateTime;
+        private String text;
+        private Boolean reveal;
+
+        public static ModifyReportResponse from(ReportInfo.Main dto) {
+            return ModifyReportResponse.builder()
+                .book(Book.from(dto.getBook()))
+                .bookReportSeq(dto.getBookReportSeq())
+                .readDateTime(dto.getReadDateTime())
+                .text(dto.getText())
+                .reveal(dto.getReveal())
                 .build();
         }
     }

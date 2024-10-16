@@ -2,6 +2,7 @@ package com.zerobase.report.report.application;
 
 import com.zerobase.report.api.user.UserApiDto;
 import com.zerobase.report.report.service.BookInfo;
+import com.zerobase.report.report.service.ReportCommand;
 import com.zerobase.report.report.service.ReportInfo;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -94,4 +95,28 @@ public class ReportFacadeDto {
 
     }
 
+    @Getter
+    @Setter
+    @Builder
+    @ToString
+    public static class ModifyReportRequest {
+        private Long bookId;
+        private Long reportSeq;
+        private String userUuid;
+        private LocalDateTime readDatetime;
+        private String text;
+        private Boolean reveal;
+
+        public ReportCommand.ModifyReport toCommand(Long userId) {
+            return ReportCommand.ModifyReport.builder()
+                .reportSeq(reportSeq)
+                .userId(userId)
+                .bookId(bookId)
+                .reveal(reveal)
+                .readDatetime(readDatetime)
+                .text(text)
+                .build();
+        }
+
+    }
 }
