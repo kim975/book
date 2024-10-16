@@ -5,7 +5,6 @@ import com.zerobase.report.follow.application.FollowFacade;
 import com.zerobase.report.follow.application.FollowFacadeDto.MainRequest;
 import com.zerobase.report.follow.controller.FollowDto.FollowUserInfoResponse;
 import java.util.List;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;

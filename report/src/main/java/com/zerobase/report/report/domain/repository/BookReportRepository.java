@@ -17,5 +17,5 @@ public interface BookReportRepository extends JpaRepository<BookReportEntity, Lo
 
     Optional<BookReportEntity> findByUserIdAndBookReportSeqAndReveal(Long userId, Long bookReportSeq, boolean reveal);
 
-    Page<BookReportEntity> findByUserIdInAndReveal(List<Long> userIds, boolean b, Pageable pageable);
+    Page<BookReportEntity> findByUserIdInAndReveal(List<Long> userIds, boolean reveal, Pageable pageable);
 }

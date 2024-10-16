@@ -1,8 +1,6 @@
 package com.zerobase.report.report.application;
 
 import com.zerobase.report.api.user.UserApiDto;
-import com.zerobase.report.report.controller.ReportDto;
-import com.zerobase.report.report.domain.model.BookEntity;
 import com.zerobase.report.report.service.BookInfo;
 import com.zerobase.report.report.service.ReportInfo;
 import java.time.LocalDate;

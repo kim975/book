@@ -1,7 +1,6 @@
 package com.zerobase.report.report.domain.repository;
 
 import com.zerobase.report.report.domain.model.BookEntity;
-import com.zerobase.report.report.domain.model.BookReportEntity;
 import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
