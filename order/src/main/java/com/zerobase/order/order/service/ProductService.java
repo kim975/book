@@ -29,6 +29,7 @@ public class ProductService {
 
     }
 
+    //TODO redis를 이용하여 동시성 해결하기
     @Transactional
     public void modifyProduct(ModifyProduct command) {
 
