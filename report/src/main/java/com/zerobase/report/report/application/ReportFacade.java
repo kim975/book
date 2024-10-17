@@ -5,6 +5,7 @@ import com.zerobase.report.api.user.UserApiDto.UserDetail;
 import com.zerobase.report.api.user.UserApiDto.UserListResponse;
 import com.zerobase.report.api.user.UserApiDto.UserResponse;
 import com.zerobase.report.api.user.UserSearchType;
+import com.zerobase.report.report.service.ReportInfo;
 import com.zerobase.report.follow.service.FollowInfo;
 import com.zerobase.report.follow.service.FollowService;
 import com.zerobase.report.report.service.ReportInfo.Main;
@@ -71,6 +72,18 @@ public class ReportFacade {
                     .get()
             )
         );
+    }
+
+    public ReportInfo.Main modifyReport(ReportFacadeDto.ModifyReportRequest dto) {
+        UserResponse user = userApi.getUser(dto.getUserUuid(), UserSearchType.USER_UUID);
+        return reportService.modifyReport(dto.toCommand(user.getData().getId()));
+    }
+
+    public void deleteReport(String userUuid, Long reportSeq) {
+
+        UserResponse user = userApi.getUser(userUuid, UserSearchType.USER_UUID);
+
+        reportService.deleteReport(user.getData().getId(), reportSeq);
     }
 
     public Page<ReportFacadeDto.GetReportResponse> getFollowMainReport(String userUuid, Pageable pageable) {

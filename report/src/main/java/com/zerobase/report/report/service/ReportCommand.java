@@ -34,4 +34,16 @@ public class ReportCommand {
         }
     }
 
+    @Getter
+    @Setter
+    @Builder
+    @ToString
+    public static class ModifyReport {
+        private Long bookId;
+        private Long reportSeq;
+        private Long userId;
+        private LocalDateTime readDatetime;
+        private String text;
+        private Boolean reveal;
+    }
 }

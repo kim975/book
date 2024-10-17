@@ -47,4 +47,19 @@ public class ReportService {
         return reportReader.getReports(userIds, pageable).map(ReportInfo.Main::fromEntity);
     }
 
+    public ReportInfo.Main modifyReport(ReportCommand.ModifyReport command) {
+        BookEntity book = bookReader.getBookById(command.getBookId());
+        BookReportEntity myReport = reportReader.getMyReport(command.getUserId(), command.getReportSeq());
+
+        myReport.setText(command.getText());
+        myReport.setReveal(command.getReveal());
+        myReport.setBookEntity(book);
+        myReport.setReadDateTime(command.getReadDatetime());
+
+        return ReportInfo.Main.fromEntity(reportStore.store(myReport));
+    }
+
+    public void deleteReport(Long userId, Long reportSeq) {
+        reportStore.delete(userId, reportSeq);
+    }
 }

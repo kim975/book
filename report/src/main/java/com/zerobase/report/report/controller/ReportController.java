@@ -4,15 +4,18 @@ import com.zerobase.report.common.response.CommonResponse;
 import com.zerobase.report.report.application.BookFacade;
 import com.zerobase.report.report.application.ReportFacade;
 import com.zerobase.report.report.controller.ReportDto.GetReportResponse;
+import com.zerobase.report.report.controller.ReportDto.ModifyReportRequest;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -87,6 +90,29 @@ public class ReportController {
     }
 
     @PreAuthorize("hasRole('USER')")
+    @PutMapping("/report/{reportSeq}")
+    public CommonResponse<ReportDto.ModifyReportResponse> modifyReport(
+        Authentication authentication,
+        @PathVariable Long reportSeq,
+        @RequestBody ModifyReportRequest request
+    ) {
+        return CommonResponse.success(
+            ReportDto.ModifyReportResponse.from(
+                reportFacade.modifyReport(request.toDto(authentication.getName(), reportSeq))
+            )
+        );
+    }
+
+    @PreAuthorize("hasRole('USER')")
+    @DeleteMapping("/report/{reportSeq}")
+    public CommonResponse<Void> modifyReport(
+        Authentication authentication,
+        @PathVariable Long reportSeq
+    ) {
+        reportFacade.deleteReport(authentication.getName(), reportSeq);
+        return CommonResponse.success();
+    }
+  
     @GetMapping("/main")
     public CommonResponse<Page<GetReportResponse>> getFollowReport(
         Authentication authentication,
