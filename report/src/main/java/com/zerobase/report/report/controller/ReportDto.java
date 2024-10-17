@@ -3,7 +3,6 @@ package com.zerobase.report.report.controller;
 import com.zerobase.report.report.application.BookFacadeDto;
 import com.zerobase.report.report.application.ReportFacadeDto;
 import com.zerobase.report.report.application.ReportFacadeDto.BookDetail;
-import com.zerobase.report.report.application.ReportFacadeDto.ModifyReportRequest;
 import com.zerobase.report.report.service.BookInfo;
 import com.zerobase.report.report.service.ReportInfo;
 import java.time.LocalDate;
@@ -144,6 +143,7 @@ public class ReportDto {
     @Setter
     @ToString
     public static class ModifyReportRequest {
+
         private Long bookId;
         private LocalDateTime readDatetime; //yyyy-MM-ddTHH:mm:ss
         private String text;

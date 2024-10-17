@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,7 +25,9 @@ public class OrderEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long productId;
+
+    @ManyToOne
+    private ProductEntity product;
     private Long userId;
     private String orderToken;
     private String deliveryAddress;
@@ -33,5 +36,17 @@ public class OrderEntity extends BaseEntity {
     private int orderPrice;
     private int orderQuantity;
     private OrderType orderType;
+
+    public OrderTransactionEntity toOrderTransactionEntity() {
+        return OrderTransactionEntity.builder()
+            .orderId(id)
+            .productId(product.getId())
+            .userId(userId)
+            .orderToken(orderToken)
+            .orderPrice(orderPrice)
+            .orderQuantity(orderQuantity)
+            .orderType(orderType)
+            .build();
+    }
 
 }

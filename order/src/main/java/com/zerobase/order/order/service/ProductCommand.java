@@ -42,4 +42,13 @@ public class ProductCommand {
 
     }
 
+    @Getter
+    @Setter
+    @Builder
+    @ToString
+    public static class MinusProductQuantity {
+
+        private Long productId;
+        private int reduceQuantity;
+    }
 }

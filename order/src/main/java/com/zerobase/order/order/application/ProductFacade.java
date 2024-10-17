@@ -1,9 +1,7 @@
 package com.zerobase.order.order.application;
 
-import com.zerobase.order.order.controller.ProductDto.GetProductResponse;
 import com.zerobase.order.order.service.ProductCommand;
 import com.zerobase.order.order.service.ProductCommand.ModifyProduct;
-import com.zerobase.order.order.service.ProductCommand.RegisterProduct;
 import com.zerobase.order.order.service.ProductInfo;
 import com.zerobase.order.order.service.ProductService;
 import lombok.RequiredArgsConstructor;
