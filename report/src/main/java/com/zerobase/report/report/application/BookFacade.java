@@ -72,4 +72,5 @@ public class BookFacade {
         UserResponse user = userApi.getUser(dto.getUserUuid(), UserSearchType.USER_UUID);
         return reportService.createReport(dto.toCommand(user.getData().getId()));
     }
+
 }

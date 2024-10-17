@@ -6,7 +6,10 @@ import com.zerobase.report.report.domain.model.BookReportEntity;
 import com.zerobase.report.report.domain.repository.BookReader;
 import com.zerobase.report.report.domain.repository.ReportReader;
 import com.zerobase.report.report.domain.repository.ReportStore;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -26,6 +29,22 @@ public class ReportService {
         report.setBookReportSeq(reportSeq + 1);
 
         return ReportInfo.Main.fromEntity(reportStore.store(report));
+    }
+
+    public ReportInfo.Main getMyReport(Long userId, Long reportSeq) {
+        return ReportInfo.Main.fromEntity(reportReader.getMyReport(userId, reportSeq));
+    }
+
+    public Page<ReportInfo.Main> getMyReports(Long userId, Pageable pageable) {
+        return reportReader.getMyReports(userId, pageable).map(ReportInfo.Main::fromEntity);
+    }
+
+    public ReportInfo.Main getReport(Long userId, Long reportSeq) {
+        return ReportInfo.Main.fromEntity(reportReader.getReport(userId, reportSeq));
+    }
+
+    public Page<ReportInfo.Main> getReports(List<Long> userIds, Pageable pageable) {
+        return reportReader.getReports(userIds, pageable).map(ReportInfo.Main::fromEntity);
     }
 
 }

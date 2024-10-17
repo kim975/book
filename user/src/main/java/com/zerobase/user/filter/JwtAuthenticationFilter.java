@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zerobase.user.common.properties.JwtConstant;
 import com.zerobase.user.common.response.CommonResponse;
 import com.zerobase.user.exception.BaseException;
-import com.zerobase.user.exception.JwtCustomException;
 import com.zerobase.user.security.TokenProvider;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

@@ -7,7 +7,6 @@ import com.zerobase.report.report.domain.model.BookEntity;
 import com.zerobase.report.report.domain.repository.BookReader;
 import com.zerobase.report.report.domain.repository.BookStore;
 import com.zerobase.report.report.service.BookInfo.BookApiDetail;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;

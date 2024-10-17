@@ -1,6 +1,5 @@
 package com.zerobase.report.report.service;
 
-import com.zerobase.report.aop.ReportSeqLock;
 import com.zerobase.report.aop.ReportSeqLockInterface;
 import com.zerobase.report.report.domain.model.BookEntity;
 import com.zerobase.report.report.domain.model.BookReportEntity;

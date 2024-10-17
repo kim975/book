@@ -2,6 +2,7 @@ package com.zerobase.report.report.domain.repository;
 
 import com.zerobase.report.exception.BaseException;
 import com.zerobase.report.exception.BookErrorCode;
+import com.zerobase.report.exception.ReportErrorCode;
 import com.zerobase.report.report.domain.model.BookEntity;
 import com.zerobase.report.report.domain.model.BookReportEntity;
 import java.util.List;
@@ -53,6 +54,28 @@ public class BookReaderImpl implements BookReader, ReportReader {
         }
 
         return report.get().getBookReportSeq();
+    }
+
+    @Override
+    public BookReportEntity getMyReport(Long userId, Long reportSeq) {
+        return bookReportRepository.findByUserIdAndBookReportSeq(userId, reportSeq)
+            .orElseThrow(() -> new BaseException(ReportErrorCode.NOT_FOUND_REPORT));
+    }
+
+    @Override
+    public Page<BookReportEntity> getMyReports(Long userId, Pageable pageable) {
+        return bookReportRepository.findByUserId(userId, pageable);
+    }
+
+    @Override
+    public BookReportEntity getReport(Long userId, Long reportSeq) {
+        return bookReportRepository.findByUserIdAndBookReportSeqAndReveal(userId, reportSeq, true)
+            .orElseThrow(() -> new BaseException(ReportErrorCode.NOT_FOUND_REPORT));
+    }
+
+    @Override
+    public Page<BookReportEntity> getReports(List<Long> userIds, Pageable pageable) {
+        return bookReportRepository.findByUserIdInAndReveal(userIds, true, pageable);
     }
 
     @Override
