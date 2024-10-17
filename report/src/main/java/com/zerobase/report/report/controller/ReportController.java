@@ -112,4 +112,16 @@ public class ReportController {
         reportFacade.deleteReport(authentication.getName(), reportSeq);
         return CommonResponse.success();
     }
+  
+    @GetMapping("/main")
+    public CommonResponse<Page<GetReportResponse>> getFollowReport(
+        Authentication authentication,
+        @RequestParam(defaultValue = "10") int size,
+        @RequestParam(defaultValue = "0") int page
+    ) {
+        return CommonResponse.success(
+            reportFacade.getFollowMainReport(authentication.getName(), PageRequest.of(page, size))
+                .map(GetReportResponse::from)
+        );
+    }
 }
