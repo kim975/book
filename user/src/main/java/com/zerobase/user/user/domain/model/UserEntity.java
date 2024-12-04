@@ -1,6 +1,7 @@
 package com.zerobase.user.user.domain.model;
 
 import com.zerobase.user.common.model.BaseEntity;
+import com.zerobase.user.converter.AES256Converter;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -32,9 +33,11 @@ public class UserEntity extends BaseEntity {
     private String nickname;
 
     @Column(unique = true, nullable = false)
+    @Convert(converter = AES256Converter.class)
     private String email;
 
     @Column(unique = true, nullable = false)
+    @Convert(converter = AES256Converter.class)
     private String phoneNumber;
 
     @Column(unique = true, nullable = false)

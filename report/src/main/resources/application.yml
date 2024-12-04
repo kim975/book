@@ -23,3 +23,7 @@ spring:
 
   jwt:
     secret: ZGF5b25lLXNwcmluZy1ib290LWRpdmlkZW5kLXByb2plY3QtdHV0b3JpYWwtand0LXNlY3JlY3Qta2V5
+
+  redis:
+    host: 192.168.56.102
+    port: 6379

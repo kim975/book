@@ -3,7 +3,7 @@ package com.zerobase.user.filter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zerobase.user.common.properties.JwtConstant;
 import com.zerobase.user.common.response.CommonResponse;
-import com.zerobase.user.exception.JwtCustomException;
+import com.zerobase.user.exception.BaseException;
 import com.zerobase.user.security.TokenProvider;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -37,7 +37,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 Authentication auth = tokenProvider.getAuthentication(token);
                 SecurityContextHolder.getContext().setAuthentication(auth);
             }
-        } catch (JwtCustomException e) {
+        } catch (BaseException e) {
             setErrorResponse(response, e);
             return;
         }
@@ -45,11 +45,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    private void setErrorResponse(HttpServletResponse response, JwtCustomException e) throws IOException {
+    private void setErrorResponse(HttpServletResponse response, BaseException e) throws IOException {
         response.setStatus(HttpStatus.OK.value());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.getWriter().write(objectMapper.writeValueAsString(
-                CommonResponse.fail(e.getErrorCode())
+            CommonResponse.fail(e.getErrorCode())
         ));
     }
 
